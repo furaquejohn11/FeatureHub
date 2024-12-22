@@ -15,14 +15,16 @@ import javax.swing.Timer;
  * @author daved
  */
 public class FrmDashboard extends javax.swing.JFrame {
-
+ private  String username;
     /**
      * Creates new form DashboardFrame
      * @param username
      */
     public FrmDashboard(String username) {
         initComponents();
+        
           userLabel.setText("Welcome, " + username);
+          this.setLocationRelativeTo(null);
            // Create a timer that triggers every second (1000 milliseconds)
        // Create a timer that triggers every second (1000 milliseconds)
         Timer timer = new Timer(1000, new ActionListener() {
@@ -47,7 +49,7 @@ public class FrmDashboard extends javax.swing.JFrame {
         timeLabel.setText(dateFormat.format(currentDate)); // Update the time label
     }
 
-    private FrmDashboard() {
+    FrmDashboard() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -86,12 +88,22 @@ public class FrmDashboard extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton1.setText("Take Quiz");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton2.setText("Data Visualization");
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton3.setText("Simple Chatbot");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton4.setText("Encryption and Decryption");
@@ -178,6 +190,19 @@ public class FrmDashboard extends javax.swing.JFrame {
         dispose();
                 new FrmLogin().setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       FrmQuiz frmquiz = new FrmQuiz(username); // Pass logged-in username
+    frmquiz.setVisible(true);
+    this.setVisible(false); // Hide the dashbo
+    
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        FrmChatbot frmchat = new FrmChatbot (username);
+        frmchat.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

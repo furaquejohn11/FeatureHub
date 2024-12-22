@@ -5,17 +5,110 @@
  */
 package featurehub;
 
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /**
  *
  * @author daved
  */
 public class FrmChatbot extends javax.swing.JFrame {
-
+    private final String chatbotName = "DeptBot"; // Chatbot's name
+    private final String username; // User's name
+              // User's name
     /**
      * Creates new form ChatbotFrame
+     * @param username
      */
-    public FrmChatbot() {
+    
+    public FrmChatbot(String username) {
+        this.username = username;
         initComponents();
+        this.setLocationRelativeTo(null);
+         
+         // Set up the JFrame
+        setTitle("Chatbot - Department Store");
+        
+         
+         
+        
+        
+        
+        
+       
+        
+        // Start conversation
+        addConversation(chatbotName, "Kumusta! Ako si DeptBot, ang iyong gabay sa department store. Ano ang maitutulong ko sa iyo?");
+        
+        
+    }
+     private void processUserInput() {
+    String userInput = userInputField.getText().trim();
+    if (userInput.isEmpty()) {
+        return; // Ignore empty input
+    }
+
+    // Add user input to conversation area
+    addConversation(username, userInput);
+
+    // Get chatbot response and add it to the conversation area
+    String botResponse = getBotResponse(userInput);
+    addConversation(chatbotName, botResponse);
+
+    // Clear input field
+    userInputField.setText("");
+}
+
+      private void addConversation(String sender, String message) {
+        conversationArea.append(sender + ": " + message + "\n");
+    }
+      private String getBotResponse(String userInput) {
+        // Simple conditional statements for chatbot logic
+        userInput = userInput.toLowerCase(); // Ignore case
+
+        if (userInput.contains("ano ang mga produkto")) {
+            return "Marami kaming produkto tulad ng damit, sapatos, gamit sa bahay, at electronics.";
+        } else if (userInput.contains("magkano")) {
+            return "Depende po sa produkto. Maaari po bang linawin kung ano ang nais mong malaman ang presyo?";
+        } else if (userInput.contains("oras")) {
+            return "Ang department store ay bukas mula 9:00 AM hanggang 9:00 PM araw-araw.";
+        } else if (userInput.contains("lokasyon")) {
+            return "Ang aming branch ay matatagpuan sa gitna ng siyudad, malapit sa pangunahing parke.";
+        } else if (userInput.contains("return") || userInput.contains("ibalik")) {
+            return "Ang produkto ay maaaring ibalik sa loob ng 7 araw basta't may resibo.";
+        } else if (userInput.contains("sale") || userInput.contains("promo")) {
+            return "Oo, may sale kami ngayong linggo! Bisitahin ang aming electronics section para sa mga discount.";
+        } else if (userInput.contains("damit")) {
+            return "Mayroon kaming mga latest fashion tulad ng t-shirts, dresses, at jackets.";
+        } else if (userInput.contains("sapatos")) {
+            return "Mayroon kaming mga sports shoes, leather shoes, at sandals na abot-kaya.";
+        } else if (userInput.contains("babayaran")) {
+            return "Tumatanggap kami ng cash, credit card, at GCash para sa pagbabayad.";
+        } else if (userInput.contains("contact number") || userInput.contains("numero")) {
+            return "Maari mo kaming tawagan sa (02) 123-4567 para sa iba pang katanungan.";
+        } else if (userInput.contains("help") || userInput.contains("tulong")) {
+            return "Pumunta lang po sa customer service desk para sa personal na assistance.";
+        } else if (userInput.contains("thank you") || userInput.contains("salamat")) {
+            return "Walang anuman! Lagi akong nandito para tumulong.";
+        } else if(userInput.toLowerCase().contains("hello")){
+             return "Hello! Paano kita matutulungan?";
+             
+        } else {
+            return "Pasensya na, hindi ko maintindihan ang iyong tanong. Maaari bang ulitin o gawing mas detalyado?";
+        }
+       
+    }
+
+
+
+    private FrmChatbot() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -29,6 +122,10 @@ public class FrmChatbot extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        conversationArea = new javax.swing.JTextArea();
+        sendButton = new javax.swing.JButton();
+        userInputField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,19 +139,54 @@ public class FrmChatbot extends javax.swing.JFrame {
             }
         });
 
+        conversationArea.setColumns(20);
+        conversationArea.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        conversationArea.setRows(5);
+        jScrollPane1.setViewportView(conversationArea);
+
+        sendButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        sendButton.setText("Send");
+        sendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendButtonActionPerformed(evt);
+            }
+        });
+
+        userInputField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        userInputField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userInputFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(626, Short.MAX_VALUE)
-                .addComponent(backButton)
-                .addGap(45, 45, 45))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                        .addComponent(backButton)
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sendButton)
+                            .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(424, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(92, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sendButton)
+                .addGap(27, 27, 27)
                 .addComponent(backButton)
                 .addGap(34, 34, 34))
         );
@@ -69,9 +201,7 @@ public class FrmChatbot extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -79,14 +209,27 @@ public class FrmChatbot extends javax.swing.JFrame {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         this.setVisible(false);  // Hide the current frame
-        FrmLogin loginFrame = new FrmLogin();  // Go back to login
-        loginFrame.setVisible(true);
+        FrmDashboard frmdashboard = new FrmDashboard(username);
+        frmdashboard.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
+            processUserInput();
+    }//GEN-LAST:event_sendButtonActionPerformed
+
+    private void userInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userInputFieldActionPerformed
+         processUserInput();
+    }//GEN-LAST:event_userInputFieldActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        String username = JOptionPane.showInputDialog(null, "Ano ang pangalan mo?", "Welcome", JOptionPane.QUESTION_MESSAGE);
+        if (username == null || username.trim().isEmpty()) {
+            username = "Customer"; // Default name if none is provided
+        }
+       
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -121,6 +264,10 @@ public class FrmChatbot extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JTextArea conversationArea;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton sendButton;
+    private javax.swing.JTextField userInputField;
     // End of variables declaration//GEN-END:variables
 }

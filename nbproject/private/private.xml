@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/NetbeansFile/FeatureHub/src/featurehub/LoginFrame.java</file>
-            <file>file:/E:/NetbeansFile/FeatureHub/src/sql/AccountRepository.java</file>
+            <file>file:/E:/FeatureHub-master/FeatureHub-master/src/featurehub/FrmDashboard.java</file>
+            <file>file:/E:/FeatureHub-master/FeatureHub-master/src/featurehub/FrmQuiz.java</file>
+            <file>file:/E:/FeatureHub-master/FeatureHub-master/src/featurehub/FrmChatbot.java</file>
         </group>
     </open-files>
 </project-private>

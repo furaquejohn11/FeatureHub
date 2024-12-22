@@ -19,6 +19,7 @@ public class FrmSignup extends javax.swing.JFrame {
     AccountRepository account = new AccountRepository();
     public FrmSignup() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
