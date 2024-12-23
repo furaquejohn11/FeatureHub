@@ -43,79 +43,70 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="0" type="rgb"/>
+          <Color blue="3e" green="37" red="31" type="rgb"/>
         </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="342" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnLogin" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="314" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtLoginStatus" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="242" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtUsername" pref="244" max="32767" attributes="0"/>
-                              <Component id="txtPassword" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnSignup" min="-2" pref="198" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnLogin" min="-2" pref="198" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtUsername" pref="400" max="32767" attributes="0"/>
+                                      <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="chbPassVisibility" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="chbPassVisibility" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
-                          <Component id="btnSignup" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="362" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="379" max="-2" attributes="0"/>
+                          <Component id="txtLoginStatus" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="256" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="chbPassVisibility" min="-2" pref="34" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="btnLogin" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="txtLoginStatus" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtUsername" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="chbPassVisibility" min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSignup" alignment="3" max="32767" attributes="0"/>
+                  </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnSignup" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="112" max="32767" attributes="0"/>
+                  <Component id="txtLoginStatus" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="94" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -124,18 +115,18 @@
         <Component class="javax.swing.JLabel" name="txtLoginStatus">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+              <Font name="SansSerif" size="16" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="LoginStatus"/>
+            <Property name="text" type="java.lang.String" value="Invalid Crededntials!"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+              <Font name="SansSerif" size="20" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -146,23 +137,36 @@
         <Component class="javax.swing.JTextField" name="txtUsername">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+              <Font name="SansSerif" size="24" style="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPassword">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+              <Font name="SansSerif" size="24" style="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogin">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="9e" green="9b" red="17" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Login"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="24" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Log in"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder roundedCorners="true" thickness="2">
+                  <Color PropertyName="color" blue="9e" green="9b" red="17" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
@@ -171,7 +175,7 @@
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+              <Font name="SansSerif" size="20" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -181,7 +185,16 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="chbPassVisibility">
           <Properties>
-            <Property name="text" type="java.lang.String" value="hide/show password"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3e" green="37" red="31" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Show password"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbPassVisibilityActionPerformed"/>
@@ -189,11 +202,38 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSignup">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Signup"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="1a" green="94" red="60" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="24" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Sign up"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder roundedCorners="true" thickness="2">
+                  <Color PropertyName="color" blue="1a" green="94" red="60" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSignupActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="30" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="FeatureHub"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

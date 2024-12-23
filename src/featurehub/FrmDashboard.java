@@ -73,20 +73,23 @@ public class FrmDashboard extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(49, 55, 62));
 
-        timeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        timeLabel.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         timeLabel.setForeground(new java.awt.Color(255, 255, 255));
         timeLabel.setText("timeLabel");
 
-        userLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        userLabel.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         userLabel.setForeground(new java.awt.Color(255, 255, 255));
-        userLabel.setText("userLabel");
+        userLabel.setText("Welcome, user!");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(23, 155, 158));
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Take Quiz");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,82 +97,98 @@ public class FrmDashboard extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton2.setText("Data Visualization");
+        jButton2.setBackground(new java.awt.Color(23, 155, 158));
+        jButton2.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("<html><p align=\"center\"> Data<p/>Visualization</html>");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton3.setText("Simple Chatbot");
+        jButton3.setBackground(new java.awt.Color(96, 148, 26));
+        jButton3.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("<html><p align=\"center\">Simple</p> Chatbot</html>");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton4.setText("Encryption and Decryption");
+        jButton4.setBackground(new java.awt.Color(96, 148, 26));
+        jButton4.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("<html>Encryption <br> <p align=\"center\"> and </p> Decryption</html>");
 
-        logoutButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        logoutButton.setText("Logout");
+        logoutButton.setBackground(new java.awt.Color(168, 46, 55));
+        logoutButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logoutButton.setText("Log out");
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutButtonActionPerformed(evt);
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jButton6.setBackground(new java.awt.Color(23, 155, 158));
+        jButton6.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Credits");
+
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("FeatureHub");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(681, Short.MAX_VALUE)
-                .addComponent(logoutButton)
-                .addGap(45, 45, 45))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(timeLabel))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(35, 35, 35)
-                    .addComponent(userLabel)
-                    .addContainerGap(694, Short.MAX_VALUE)))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(timeLabel))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(userLabel)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(timeLabel)
+                    .addComponent(jLabel5))
+                .addGap(80, 80, 80)
+                .addComponent(userLabel)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70)
                 .addComponent(logoutButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(timeLabel)
-                .addGap(33, 33, 33)
-                .addComponent(jButton1)
-                .addGap(17, 17, 17)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addGap(18, 18, 18)
-                .addComponent(jButton6)
-                .addContainerGap(127, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(54, 54, 54)
-                    .addComponent(userLabel)
-                    .addContainerGap(457, Short.MAX_VALUE)))
+                .addGap(47, 47, 47))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -203,6 +222,10 @@ public class FrmDashboard extends javax.swing.JFrame {
         frmchat.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,6 +269,7 @@ public class FrmDashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel timeLabel;

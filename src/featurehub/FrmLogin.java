@@ -73,105 +73,116 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         chbPassVisibility = new javax.swing.JCheckBox();
         btnSignup = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(49, 55, 62));
 
-        txtLoginStatus.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtLoginStatus.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         txtLoginStatus.setForeground(new java.awt.Color(255, 255, 255));
-        txtLoginStatus.setText("LoginStatus");
+        txtLoginStatus.setText("Invalid Crededntials!");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Username");
 
-        txtUsername.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
 
-        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
 
-        btnLogin.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        btnLogin.setText("Login");
+        btnLogin.setBackground(new java.awt.Color(23, 155, 158));
+        btnLogin.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin.setText("Log in");
+        btnLogin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(23, 155, 158), 2, true));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Password");
 
-        chbPassVisibility.setText("hide/show password");
+        chbPassVisibility.setBackground(new java.awt.Color(49, 55, 62));
+        chbPassVisibility.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        chbPassVisibility.setForeground(new java.awt.Color(255, 255, 255));
+        chbPassVisibility.setText("Show password");
         chbPassVisibility.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chbPassVisibilityActionPerformed(evt);
             }
         });
 
-        btnSignup.setText("Signup");
+        btnSignup.setBackground(new java.awt.Color(96, 148, 26));
+        btnSignup.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        btnSignup.setForeground(new java.awt.Color(255, 255, 255));
+        btnSignup.setText("Sign up");
+        btnSignup.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(96, 148, 26), 2, true));
         btnSignup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSignupActionPerformed(evt);
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("FeatureHub");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(342, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnLogin)
-                        .addGap(314, 314, 314))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtLoginStatus)
-                        .addGap(295, 295, 295))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
+                        .addGap(242, 242, 242)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                            .addComponent(txtPassword))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(chbPassVisibility))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                                    .addComponent(txtPassword))
+                                .addComponent(chbPassVisibility, javax.swing.GroupLayout.Alignment.TRAILING))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(btnSignup)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(362, 362, 362)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(379, 379, 379)
+                        .addComponent(txtLoginStatus)))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(165, 165, 165)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(chbPassVisibility, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
-                .addComponent(btnLogin)
+                .addGap(65, 65, 65)
+                .addComponent(jLabel1)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtLoginStatus)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chbPassVisibility, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin)
+                    .addComponent(btnSignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(btnSignup)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addComponent(txtLoginStatus)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -188,38 +199,38 @@ public class FrmLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String username = txtUsername.getText();
-    char[] password = txtPassword.getPassword();
-
-    // Validate the credentials (check username and password)
-    if (isValidLogin(username, password)) {
-        // Proceed to the appropriate FrmDashboard based on user level
-        FrmDashboard dashboard = new FrmDashboard(username);
-        dashboard.setVisible(true);
-        this.setVisible(false); // Hide the login frame
-    } else {
-        attemptCount++; // Increment attempt count on invalid login
-        txtLoginStatus.setVisible(true); // Make the label visible when there is an error
-        txtLoginStatus.setText("Invalid credentials.");
-
-        if (attemptCount >= 3) {
-            // Close the application after 3 invalid attempts
-            JOptionPane.showMessageDialog(this, "Too many invalid attempts. Closing application.");
-            System.exit(0); // Terminate the program
-        }
-    }
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void chbPassVisibilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbPassVisibilityActionPerformed
-        togglePasswordVisibility();
-    }//GEN-LAST:event_chbPassVisibilityActionPerformed
-
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         // TODO add your handling code here:
         FrmSignup signup = new FrmSignup();
         signup.setVisible(true);
     }//GEN-LAST:event_btnSignupActionPerformed
+
+    private void chbPassVisibilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbPassVisibilityActionPerformed
+        togglePasswordVisibility();
+    }//GEN-LAST:event_chbPassVisibilityActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        String username = txtUsername.getText();
+        char[] password = txtPassword.getPassword();
+
+        // Validate the credentials (check username and password)
+        if (isValidLogin(username, password)) {
+            // Proceed to the appropriate FrmDashboard based on user level
+            FrmDashboard dashboard = new FrmDashboard(username);
+            dashboard.setVisible(true);
+            this.setVisible(false); // Hide the login frame
+        } else {
+            attemptCount++; // Increment attempt count on invalid login
+            txtLoginStatus.setVisible(true); // Make the label visible when there is an error
+            txtLoginStatus.setText("Invalid credentials.");
+
+            if (attemptCount >= 3) {
+                // Close the application after 3 invalid attempts
+                JOptionPane.showMessageDialog(this, "Too many invalid attempts. Closing application.");
+                System.exit(0); // Terminate the program
+            }
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,6 +272,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnSignup;
     private javax.swing.JCheckBox chbPassVisibility;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
