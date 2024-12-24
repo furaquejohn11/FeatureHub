@@ -8,6 +8,7 @@ package featurehub;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
@@ -15,14 +16,16 @@ import javax.swing.Timer;
  * @author daved
  */
 public class FrmDashboard extends javax.swing.JFrame {
- private  String username;
+   private String username;
     /**
      * Creates new form DashboardFrame
      * @param username
      */
     public FrmDashboard(String username) {
         initComponents();
-        
+        setTitle("Dashboard");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.username = username;
           userLabel.setText("Welcome, " + username);
           this.setLocationRelativeTo(null);
            // Create a timer that triggers every second (1000 milliseconds)
@@ -38,9 +41,7 @@ public class FrmDashboard extends javax.swing.JFrame {
         
         timeLabel.setText("00-00-0000 00:00:00"); // Initial text
 
-        
-
-        
+  
     }
     // Method to update the time
     private void updateTime() {
@@ -50,7 +51,11 @@ public class FrmDashboard extends javax.swing.JFrame {
     }
 
     FrmDashboard() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       initComponents();
+        setTitle("Dashboard");
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
    
@@ -67,12 +72,12 @@ public class FrmDashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         timeLabel = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        quizButton = new javax.swing.JButton();
+        visualizationButton = new javax.swing.JButton();
+        chatbotButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        creditsButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,33 +92,33 @@ public class FrmDashboard extends javax.swing.JFrame {
         userLabel.setForeground(new java.awt.Color(255, 255, 255));
         userLabel.setText("Welcome, user!");
 
-        jButton1.setBackground(new java.awt.Color(23, 155, 158));
-        jButton1.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Take Quiz");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        quizButton.setBackground(new java.awt.Color(23, 155, 158));
+        quizButton.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        quizButton.setForeground(new java.awt.Color(255, 255, 255));
+        quizButton.setText("Take Quiz");
+        quizButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                quizButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(23, 155, 158));
-        jButton2.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("<html><p align=\"center\"> Data<p/>Visualization</html>");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        visualizationButton.setBackground(new java.awt.Color(23, 155, 158));
+        visualizationButton.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        visualizationButton.setForeground(new java.awt.Color(255, 255, 255));
+        visualizationButton.setText("<html><p align=\"center\"> Data<p/>Visualization</html>");
+        visualizationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                visualizationButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(96, 148, 26));
-        jButton3.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("<html><p align=\"center\">Simple</p> Chatbot</html>");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        chatbotButton.setBackground(new java.awt.Color(96, 148, 26));
+        chatbotButton.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        chatbotButton.setForeground(new java.awt.Color(255, 255, 255));
+        chatbotButton.setText("<html><p align=\"center\">Simple</p> Chatbot</html>");
+        chatbotButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                chatbotButtonActionPerformed(evt);
             }
         });
 
@@ -132,10 +137,15 @@ public class FrmDashboard extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(23, 155, 158));
-        jButton6.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Credits");
+        creditsButton.setBackground(new java.awt.Color(23, 155, 158));
+        creditsButton.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        creditsButton.setForeground(new java.awt.Color(255, 255, 255));
+        creditsButton.setText("Credits");
+        creditsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditsButtonActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,15 +167,15 @@ public class FrmDashboard extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(userLabel)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(quizButton, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(chatbotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(visualizationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(creditsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -179,14 +189,12 @@ public class FrmDashboard extends javax.swing.JFrame {
                 .addComponent(userLabel)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(creditsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
+                    .addComponent(visualizationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(quizButton, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chatbotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutButton)
                 .addGap(47, 47, 47))
         );
@@ -210,22 +218,32 @@ public class FrmDashboard extends javax.swing.JFrame {
                 new FrmLogin().setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       FrmQuiz frmquiz = new FrmQuiz(username); // Pass logged-in username
+    private void quizButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quizButtonActionPerformed
+       
+        FrmQuiz frmquiz = new FrmQuiz(username); // Pass logged-in username
     frmquiz.setVisible(true);
     this.setVisible(false); // Hide the dashbo
     
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_quizButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        FrmChatbot frmchat = new FrmChatbot (username);
-        frmchat.setVisible(true);
+    private void chatbotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatbotButtonActionPerformed
+       
+        FrmChatbot frmchatbot = new FrmChatbot (username);
+        frmchatbot.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_chatbotButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void visualizationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizationButtonActionPerformed
+        FrmVisualization frmvisuals = new FrmVisualization(username);
+        frmvisuals.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_visualizationButtonActionPerformed
+
+    private void creditsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsButtonActionPerformed
+       FrmCredits frmcredits = new FrmCredits(username);
+       frmcredits.setVisible(true);
+       this.setVisible(false);
+    }//GEN-LAST:event_creditsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,15 +282,15 @@ public class FrmDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton chatbotButton;
+    private javax.swing.JButton creditsButton;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JButton quizButton;
     private javax.swing.JLabel timeLabel;
     private javax.swing.JLabel userLabel;
+    private javax.swing.JButton visualizationButton;
     // End of variables declaration//GEN-END:variables
 }

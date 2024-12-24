@@ -17,7 +17,7 @@ import javax.swing.Timer;
  */
 
 public class FrmQuiz extends javax.swing.JFrame {
-    private final String username;
+    private  String username;
     private int timeLeft = 300; // 5 minutes in seconds
     private int currentQuestionIndex = 0;
     private int correctAnswers = 0;
@@ -31,7 +31,8 @@ public class FrmQuiz extends javax.swing.JFrame {
         displayQuestion();
         startTimer();
         this.setLocationRelativeTo(null);
-        
+       userLabel.setText(username);
+      
         
         ButtonGroup group = new ButtonGroup();
         group.add(choice1);
@@ -41,7 +42,7 @@ public class FrmQuiz extends javax.swing.JFrame {
         
     }
 
-    private FrmQuiz() {
+    FrmQuiz() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     // Initialize timer
@@ -206,6 +207,7 @@ private void loadQuestions() {
         questionLabel = new javax.swing.JLabel();
         timerLabel = new javax.swing.JLabel();
         nextButton = new javax.swing.JButton();
+        userLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -247,28 +249,37 @@ private void loadQuestions() {
             }
         });
 
+        userLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        userLabel.setForeground(new java.awt.Color(255, 255, 255));
+        userLabel.setText("userLabel");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(questionLabel)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(choice2)
-                        .addComponent(choice3)
-                        .addComponent(choice4)
-                        .addComponent(choice1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
-                .addComponent(timerLabel)
-                .addGap(116, 116, 116))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addGap(18, 18, 18)
                 .addComponent(nextButton)
                 .addGap(102, 102, 102))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(userLabel))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(questionLabel)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(choice2)
+                                .addComponent(choice3)
+                                .addComponent(choice4)
+                                .addComponent(choice1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
+                        .addComponent(timerLabel)))
+                .addGap(116, 116, 116))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +288,9 @@ private void loadQuestions() {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timerLabel)
                     .addComponent(questionLabel))
-                .addGap(51, 51, 51)
+                .addGap(18, 18, 18)
+                .addComponent(userLabel)
+                .addGap(4, 4, 4)
                 .addComponent(choice1)
                 .addGap(18, 18, 18)
                 .addComponent(choice2)
@@ -296,9 +309,7 @@ private void loadQuestions() {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,5 +395,6 @@ private void loadQuestions() {
     private javax.swing.JButton nextButton;
     private javax.swing.JLabel questionLabel;
     private javax.swing.JLabel timerLabel;
+    private javax.swing.JLabel userLabel;
     // End of variables declaration//GEN-END:variables
 }
