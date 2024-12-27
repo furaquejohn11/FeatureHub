@@ -56,9 +56,11 @@
                           <EmptySpace min="-2" pref="242" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="btnSignup" min="-2" pref="198" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnLogin" min="-2" pref="198" max="-2" attributes="0"/>
+                                  <Component id="btnSignup" min="-2" pref="134" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnGuest" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                                  <Component id="btnLogin" min="-2" pref="129" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -80,7 +82,7 @@
                           <Component id="txtLoginStatus" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="256" max="32767" attributes="0"/>
+                  <EmptySpace pref="334" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -103,10 +105,11 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSignup" alignment="3" max="32767" attributes="0"/>
+                      <Component id="btnGuest" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="txtLoginStatus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="94" max="32767" attributes="0"/>
+                  <EmptySpace pref="93" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -147,6 +150,9 @@
               <Font name="SansSerif" size="24" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPasswordActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogin">
           <Properties>
@@ -234,6 +240,17 @@
             </Property>
             <Property name="text" type="java.lang.String" value="FeatureHub"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnGuest">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="24" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Guest"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuestActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

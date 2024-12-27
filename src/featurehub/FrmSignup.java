@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package featurehub;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import sql.AccountRepository;
 
@@ -21,6 +25,38 @@ public class FrmSignup extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    
+    private void MsgAlert(String msg, int icon, String title)
+    {
+        JOptionPane opt = new JOptionPane();
+        opt.setMessage(msg);
+        opt.setMessageType(icon);
+        JDialog dialog = opt.createDialog(this, title);
+        dialog.setVisible(true);
+    }
+    private boolean hasEmptyValues(String[] values)
+    {
+        for (String value : values)
+        {
+            if (value.isEmpty()) return true;
+        }
+        return false;
+    }
+    
+    private boolean isValidPassword(String password) {
+        // Password validation logic: At least 8 characters, one uppercase letter, one lowercase letter, and one digit
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+    private void togglePasswordVisibility() {
+        if (txtPassword.getEchoChar() == (char) 0) {
+            txtPassword.setEchoChar('*'); // Hide password
+        } else {
+            txtPassword.setEchoChar((char) 0); // Show password
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +71,6 @@ public class FrmSignup extends javax.swing.JFrame {
         txtFirstname = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
         txtLastname = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -43,6 +78,8 @@ public class FrmSignup extends javax.swing.JFrame {
         cbRole = new javax.swing.JComboBox();
         btnSignup = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        chbPassVisibility = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,8 +90,6 @@ public class FrmSignup extends javax.swing.JFrame {
         txtUsername.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
 
         txtLastname.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-
-        txtPassword.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -90,32 +125,46 @@ public class FrmSignup extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("FeatureHub");
 
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
+        chbPassVisibility.setBackground(new java.awt.Color(49, 55, 62));
+        chbPassVisibility.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        chbPassVisibility.setForeground(new java.awt.Color(255, 255, 255));
+        chbPassVisibility.setText("Show password");
+        chbPassVisibility.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbPassVisibilityActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(259, 259, 259)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtUsername)
-                    .addComponent(txtPassword)
-                    .addComponent(cbRole, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(235, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(378, 378, 378))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(259, 259, 259)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chbPassVisibility)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUsername)
+                        .addComponent(cbRole, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtPassword)))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,8 +172,8 @@ public class FrmSignup extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addComponent(jLabel5)
                 .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -136,13 +185,15 @@ public class FrmSignup extends javax.swing.JFrame {
                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chbPassVisibility, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
                 .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(btnSignup)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -165,19 +216,40 @@ public class FrmSignup extends javax.swing.JFrame {
         String firstname = txtFirstname.getText();
         String lastname = txtLastname.getText();
         String username = txtUsername.getText();
-        String password = txtPassword.getText();
+        String password = new String(txtPassword.getPassword());
         String role = cbRole.getSelectedItem().toString();
         
-        if (account.isUsernameExisting(username))
+        String[] values = { firstname, lastname, username, password, role };
+        
+        if (hasEmptyValues(values))
         {
-            // Create a message box here instead of print
-            System.out.print("Username already exist");
+            MsgAlert("Please filled out all of the boxes!.", JOptionPane.INFORMATION_MESSAGE, role);
             return;
         }
         
-        account.signup(firstname, lastname, username, password, role);
-        System.out.print("Signup successfull");
+        if (account.isUsernameExisting(username))
+        {
+            MsgAlert("Username already exist! Try another one.", JOptionPane.ERROR_MESSAGE, role);
+            return;
+        }
+        
+        if (!(isValidPassword(password) && password.length() >= 8))
+        {
+            MsgAlert("Password must have length of 8, with uppercase, lowercase and numbers!", 
+                    JOptionPane.ERROR_MESSAGE, role);
+            return;
+        }
+        
+        account.signUp(firstname, lastname, username, password, role);
+        MsgAlert("Signup successfull!", 
+                    JOptionPane.INFORMATION_MESSAGE, role);
+        
+        this.dispose();
     }//GEN-LAST:event_btnSignupActionPerformed
+
+    private void chbPassVisibilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbPassVisibilityActionPerformed
+        togglePasswordVisibility();
+    }//GEN-LAST:event_chbPassVisibilityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +290,7 @@ public class FrmSignup extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSignup;
     private javax.swing.JComboBox cbRole;
+    private javax.swing.JCheckBox chbPassVisibility;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -226,7 +299,7 @@ public class FrmSignup extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtFirstname;
     private javax.swing.JTextField txtLastname;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

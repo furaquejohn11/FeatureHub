@@ -17,16 +17,18 @@ import javax.swing.Timer;
  */
 
 public class FrmQuiz extends javax.swing.JFrame {
-    private  String username;
+    private String username;
+    private String role;
     private int timeLeft = 300; // 5 minutes in seconds
     private int currentQuestionIndex = 0;
     private int correctAnswers = 0;
     private Question[] questions;
     private Timer timer; // Declare the timer here as an instance variable
     
-    public FrmQuiz(String username) {
+    public FrmQuiz(String username, String role) {
         initComponents();
         this.username = username;
+        this.role = role;
         loadQuestions();
         displayQuestion();
         startTimer();
@@ -108,7 +110,7 @@ public class FrmQuiz extends javax.swing.JFrame {
     } else if (choice == JOptionPane.NO_OPTION) {
         // Go back to the dashboard: close the current frame and show the dashboard
         this.setVisible(false);
-        FrmDashboard frmdashboard = new FrmDashboard(username); // Assuming you have a DashboardFrame class
+        FrmDashboard frmdashboard = new FrmDashboard(username, role); // Assuming you have a DashboardFrame class
         frmdashboard.setVisible(true);
     }
 }
@@ -323,7 +325,7 @@ private void loadQuestions() {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         this.setVisible(false);  // Hide the current frame
-        FrmDashboard frmdashboard = new FrmDashboard(username);
+        FrmDashboard frmdashboard = new FrmDashboard(username, role);
         frmdashboard.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 

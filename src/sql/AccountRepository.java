@@ -51,7 +51,28 @@ public class AccountRepository
             return false; // Return false or handle this appropriately
         }
     }
-    public void signup(
+    public String getRoleByUsername(String username) 
+    {
+        String query = "SELECT role FROM Accounts WHERE username = ?";
+
+        try (Connection connection = DriverManager.getConnection(connectionString);
+            PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("role"); // Return the role associated with the username
+            } else {
+                return null; // Return null if the username does not exist
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error executing query: " + e.getMessage());
+            return null; // Return null if an error occurs
+        }
+    }
+    public void signUp(
             String firstname,
             String lastname,
             String username,

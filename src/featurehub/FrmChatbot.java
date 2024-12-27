@@ -16,16 +16,19 @@ public class FrmChatbot extends javax.swing.JFrame {
      private final String chatbotName = "DeptBot";
     
     private final Map<String, String> responseMap; // Store predefined responses
-    private String username;
+    private final String username;
+    private final String role;
               
     /**
      * Creates new form ChatbotFrame
      * 
      * @param username
+     * @param role
      */
     
-    public FrmChatbot(String username) {
-       this.username = username;
+    public FrmChatbot(String username, String role) {
+        this.username = username;
+        this.role = role;
         this.responseMap = initializeResponses();
         initComponents();
         this.setLocationRelativeTo(null);
@@ -217,7 +220,7 @@ private Map<String, String> initializeResponses() {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         this.setVisible(false);  // Hide the current frame
-        new FrmDashboard(username).setVisible(true);
+        new FrmDashboard(username, role).setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed

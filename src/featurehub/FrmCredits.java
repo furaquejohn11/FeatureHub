@@ -11,16 +11,19 @@ package featurehub;
  */
 
 public class FrmCredits extends javax.swing.JFrame {
-        private String username;
+    private String username;
+    private String role;
     /**
      * Creates new form CreditsFrame
      * @param username
+     * @param role
      */
-    public FrmCredits(String username) {
+    public FrmCredits(String username, String role) {
         initComponents();
         setTitle("Credits");
         this.setLocationRelativeTo(null);
         this.username = username;
+        this.role = role;
         
     }
 
@@ -174,7 +177,7 @@ public class FrmCredits extends javax.swing.JFrame {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         
-       FrmDashboard frmdashboard = new FrmDashboard(username);
+       FrmDashboard frmdashboard = new FrmDashboard(username, role);
        frmdashboard.setVisible(true);
        this.setVisible(false);  // Hide the current frame
     }//GEN-LAST:event_backButtonActionPerformed

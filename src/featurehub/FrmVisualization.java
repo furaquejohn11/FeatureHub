@@ -35,15 +35,19 @@ public class FrmVisualization extends javax.swing.JFrame {
     private final JPanel mainPanel;
     private final JPanel chartsPanel;
     private String username;
+    private String role;
    
     
     /**
      * Creates new form VisualizationFrame
      * @param username
+     * @param role
      */
-    public FrmVisualization(String username) {
+    public FrmVisualization(String username, String role) {
         initComponents();
         this.username = username;
+        this.role = role;
+        
          // Initialize data structures
         departmentData = new HashMap<>();
         yearData = new HashMap<>();
@@ -76,6 +80,7 @@ public class FrmVisualization extends javax.swing.JFrame {
         
         // Add main panel to frame
         setContentPane(mainPanel);
+        
     }
 
     private FrmVisualization() {
@@ -120,7 +125,7 @@ public class FrmVisualization extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                // Close the current FrmVisualization frame and open FrmDashboard
                 FrmVisualization.this.dispose();  // Close FrmVisualization
-                FrmDashboard frmdashboard = new FrmDashboard(username);
+                FrmDashboard frmdashboard = new FrmDashboard(username, role);
                 frmdashboard.setVisible(true);
                
             }

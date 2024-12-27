@@ -74,6 +74,7 @@ public class FrmLogin extends javax.swing.JFrame {
         chbPassVisibility = new javax.swing.JCheckBox();
         btnSignup = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnGuest = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -92,6 +93,11 @@ public class FrmLogin extends javax.swing.JFrame {
         txtUsername.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
 
         txtPassword.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         btnLogin.setBackground(new java.awt.Color(23, 155, 158));
         btnLogin.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
@@ -133,6 +139,14 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("FeatureHub");
 
+        btnGuest.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnGuest.setText("Guest");
+        btnGuest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -143,9 +157,11 @@ public class FrmLogin extends javax.swing.JFrame {
                         .addGap(242, 242, 242)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnGuest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel2)
@@ -159,7 +175,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(379, 379, 379)
                         .addComponent(txtLoginStatus)))
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(334, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,10 +195,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
-                    .addComponent(btnSignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(txtLoginStatus)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,7 +233,8 @@ public class FrmLogin extends javax.swing.JFrame {
         // Validate the credentials (check username and password)
         if (isValidLogin(username, password)) {
             // Proceed to the appropriate FrmDashboard based on user level
-            FrmDashboard dashboard = new FrmDashboard(username);
+            String role = account.getRoleByUsername(username);
+            FrmDashboard dashboard = new FrmDashboard(username, role);
             dashboard.setVisible(true);
             this.setVisible(false); // Hide the login frame
         } else {
@@ -231,6 +249,17 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void btnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuestActionPerformed
+        // TODO add your handling code here:
+        FrmDashboard dashboard = new FrmDashboard("GUEST", "GUEST");
+        dashboard.setVisible(true);
+        this.setVisible(false); // Hide the login frame
+    }//GEN-LAST:event_btnGuestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,6 +298,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuest;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnSignup;
     private javax.swing.JCheckBox chbPassVisibility;
