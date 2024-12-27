@@ -106,16 +106,15 @@ private Map<String, String> initializeResponses() {
     }
 
     // Get chatbot response
-    private String getBotResponse(String userInput) {
-        // Check if user input matches any keyword
-        for (Map.Entry<String, String> entry : responseMap.entrySet()) {
-            if (userInput.contains(entry.getKey())) {
-                return entry.getValue();
-            }
+   private String getBotResponse(String userInput) {
+    userInput = userInput.trim().toLowerCase(); // Sanitize input
+    for (Map.Entry<String, String> entry : responseMap.entrySet()) {
+        if (userInput.matches(".*\\b" + entry.getKey() + "\\b.*")) { // Exact word match
+            return entry.getValue();
         }
-        // Default response if no match is found
-        return "Pasensya na, hindi ko maintindihan ang iyong tanong. Maaari bang ulitin o gawing mas detalyado?";
     }
+    return "Pasensya na, hindi ko maintindihan ang iyong tanong. Maaari bang ulitin o gawing mas detalyado?";
+}
 
 
 

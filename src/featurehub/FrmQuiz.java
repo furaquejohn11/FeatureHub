@@ -24,8 +24,10 @@ public class FrmQuiz extends javax.swing.JFrame {
     private int correctAnswers = 0;
     private Question[] questions;
     private Timer timer; // Declare the timer here as an instance variable
+    private ButtonGroup group;
     
     public FrmQuiz(String username, String role) {
+        this.group = new ButtonGroup();
         initComponents();
         this.username = username;
         this.role = role;
@@ -36,15 +38,50 @@ public class FrmQuiz extends javax.swing.JFrame {
        userLabel.setText(username);
       
         
-        ButtonGroup group = new ButtonGroup();
+        
         group.add(choice1);
         group.add(choice2);
         group.add(choice3);
         group.add(choice4);
         
+        // Disable nextButton initially
+    nextButton.setEnabled(false);
+
+    // Enable nextButton when any choice is selected
+    choice1.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            nextButton.setEnabled(true);
+        }
+    });
+
+    choice2.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            nextButton.setEnabled(true);
+        }
+    });
+
+    choice3.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            nextButton.setEnabled(true);
+        }
+    });
+
+    choice4.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            nextButton.setEnabled(true);
+        }
+    });
+        
+        
+        
     }
 
     FrmQuiz() {
+        this.group = new ButtonGroup();
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     // Initialize timer
@@ -57,7 +94,7 @@ public class FrmQuiz extends javax.swing.JFrame {
                     timeLeft--;
                     timerLabel.setText("Time left: " + timeLeft + "s");
                 } else {
-                   // endQuiz(); // End quiz when time is up
+                    endQuiz(); // End quiz when time is up
                 }
             }
 
@@ -67,6 +104,12 @@ public class FrmQuiz extends javax.swing.JFrame {
     
     
     }
+    
+    private void updateProgress() {
+    String progress = "Question " + (currentQuestionIndex + 1) + " of " + questions.length;
+    this.setTitle(progress);
+}
+    
     private void endQuiz() {
     // Stop the timer
     if (timer != null) {
@@ -96,13 +139,15 @@ public class FrmQuiz extends javax.swing.JFrame {
 
     // Ask the user if they want to retake the quiz or go back to the dashboard
     int choice = JOptionPane.showOptionDialog(this,
-        "Do you want to retake the quiz or go back to the dashboard?",
-        "Quiz Finished",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE,
-        null,
-        new Object[] {"Retake Quiz", "Back to Dashboard"},
-        "Retake Quiz");
+    "Quiz Finished!\nYour Score: " + correctAnswers + "/" + questions.length + "\nRemarks: " + remarks +
+    "\n\nWould you like to retry or return to the dashboard?",
+    "Quiz Complete",
+    JOptionPane.YES_NO_OPTION,
+    JOptionPane.QUESTION_MESSAGE,
+    null,
+    new Object[] {"Retry", "Dashboard"},
+    "Retry");
+
 
     if (choice == JOptionPane.YES_OPTION) {
         // Retake the quiz: reset the quiz
@@ -128,6 +173,7 @@ public class FrmQuiz extends javax.swing.JFrame {
     
     // Display the first question
     displayQuestion();
+    
 }
 
     // Show a recommendation based on score
@@ -170,17 +216,29 @@ private void loadQuestions() {
 
     // Display current question
     private void displayQuestion() {
-        if (currentQuestionIndex < questions.length) {
-            Question currentQuestion = questions[currentQuestionIndex];
-            questionLabel.setText(currentQuestion.getQuestionText());
-            choice1.setText(currentQuestion.getChoices()[0]);
-            choice2.setText(currentQuestion.getChoices()[1]);
-            choice3.setText(currentQuestion.getChoices()[2]);
-            choice4.setText(currentQuestion.getChoices()[3]);
-        } else {
-           // endQuiz(); // End the quiz after all questions
-        }
+    if (currentQuestionIndex < questions.length) {
+        // Get the current question
+        Question currentQuestion = questions[currentQuestionIndex];
+        
+        // Set the question text and choices
+        questionLabel.setText(currentQuestion.getQuestionText());
+        choice1.setText(currentQuestion.getChoices()[0]);
+        choice2.setText(currentQuestion.getChoices()[1]);
+        choice3.setText(currentQuestion.getChoices()[2]);
+        choice4.setText(currentQuestion.getChoices()[3]);
+        
+        // Clear the selection of the radio buttons
+        group.clearSelection();
+        
+        // Disable the Next button until a choice is selected
+        nextButton.setEnabled(false);
+
+        // Update the progress display
+        updateProgress();
+    } else {
+        //endQuiz(); // End the quiz if no more questions
     }
+}
     // Button actions for answers (you can attach this to all the choice buttons)
     private void checkAnswer(String selectedAnswer) {
         String correctAnswer = questions[currentQuestionIndex].getCorrectAnswer();
@@ -330,7 +388,13 @@ private void loadQuestions() {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        // Check if there are more questions to answer
+        
+            // Check if no option is selected
+    if (!choice1.isSelected() && !choice2.isSelected() && !choice3.isSelected() && !choice4.isSelected()) {
+        JOptionPane.showMessageDialog(this, "Please select an answer before proceeding.");
+        return; // Prevent moving to the next question
+    }
+// Check if there are more questions to answer
         if (currentQuestionIndex < questions.length) {
             // Check selected answer
             if (choice1.isSelected()) {
