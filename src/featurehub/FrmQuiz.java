@@ -5,8 +5,10 @@
  */
 package featurehub;
 
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -17,6 +19,9 @@ import javax.swing.Timer;
  */
 
 public class FrmQuiz extends javax.swing.JFrame {
+    private List<String> resultSummary; // To store each question's result
+    private List<Boolean> answerResults;
+
     private String username;
     private String role;
     private int timeLeft = 300; // 5 minutes in seconds
@@ -27,8 +32,10 @@ public class FrmQuiz extends javax.swing.JFrame {
     private ButtonGroup group;
     
     public FrmQuiz(String username, String role) {
+        this.answerResults = new ArrayList<>();
         this.group = new ButtonGroup();
         initComponents();
+        this.resultSummary = new ArrayList<>(); // Initialize the result list
         this.username = username;
         this.role = role;
         loadQuestions();
@@ -76,11 +83,38 @@ public class FrmQuiz extends javax.swing.JFrame {
         }
     });
         
-        
-        
+     // Ensure the frame or specific component has focus and can capture key events
+    this.setFocusable(true);
+    this.requestFocusInWindow();  // Ensure it has focus to listen to key events
+    
+    // Add the key listener to detect the Enter key
+    this.addKeyListener(new java.awt.event.KeyAdapter() {
+        @Override
+        public void keyPressed(java.awt.event.KeyEvent evt) {
+            // Print a debug message to confirm key event is being captured
+            System.out.println("Key pressed: " + evt.getKeyCode());  // Debug output
+
+            // Check if Enter key was pressed
+            if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+                System.out.println("Enter key pressed");  // Debug output
+
+                // Check if any answer is selected
+                if (choice1.isSelected() || choice2.isSelected() || choice3.isSelected() || choice4.isSelected()) {
+                    // Simulate button click by calling the method directly
+                    nextButtonActionPerformed(null);  // null is passed as no actual event is fired
+                } else {
+                    JOptionPane.showMessageDialog(FrmQuiz.this, "Please select an answer before proceeding.");
+                }
+            }
+        }
+    });
+
+    // Ensure that the frame is focused on startup
+    this.requestFocusInWindow();  // Ensures the frame can capture key events
     }
 
     FrmQuiz() {
+        this.answerResults = new ArrayList<>();
         this.group = new ButtonGroup();
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -105,76 +139,71 @@ public class FrmQuiz extends javax.swing.JFrame {
     
     }
     
+    
     private void updateProgress() {
     String progress = "Question " + (currentQuestionIndex + 1) + " of " + questions.length;
     this.setTitle(progress);
 }
     
     private void endQuiz() {
-    // Stop the timer
-    if (timer != null) {
-        timer.stop();
-    }
+        if (timer != null) {
+            timer.stop();
+        }
 
-    // Calculate remarks based on the score
-    String remarks = "";
-    if (correctAnswers >= 15) {
-        remarks = "Excellent";
-    } else if (correctAnswers >= 12) {
-        remarks = "Very Good";
-    } else if (correctAnswers >= 9) {
-        remarks = "Fair";
-    } else {
-        remarks = "Failed";
-    }
+        String remarks = "";
+        if (correctAnswers >= 15) {
+            remarks = "Excellent";
+        } else if (correctAnswers >= 12) {
+            remarks = "Very Good";
+        } else if (correctAnswers >= 9) {
+            remarks = "Fair";
+        } else {
+            remarks = "Failed";
+        }
+        
+    
 
-    // Show results
+         // Show summary of results
+    StringBuilder summary = new StringBuilder("Quiz Summary:\n\n");
+    for (int i = 0; i < questions.length; i++) {
+        String status = answerResults.get(i) ? "Correct" : "Incorrect";
+        summary.append("Question ").append(i + 1).append(": ").append(status).append("\n");
+    }
+    JOptionPane.showMessageDialog(this, summary.toString(), "Quiz Summary", JOptionPane.INFORMATION_MESSAGE);
+// Show results
     JOptionPane.showMessageDialog(this,
         "Quiz Finished!\n" +
         "Your Score: " + correctAnswers + "/17\n" +
         "Remarks: " + remarks);
-    
     // Show recommendation
     showRecommendation(correctAnswers);
+        // Ask the user for next steps
+        int choice = JOptionPane.showOptionDialog(this,
+                "Would you like to retry or return to the dashboard?",
+                "Quiz Complete",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new Object[]{"Retry", "Dashboard"},
+                "Retry");
 
-    // Ask the user if they want to retake the quiz or go back to the dashboard
-    int choice = JOptionPane.showOptionDialog(this,
-    "Quiz Finished!\nYour Score: " + correctAnswers + "/" + questions.length + "\nRemarks: " + remarks +
-    "\n\nWould you like to retry or return to the dashboard?",
-    "Quiz Complete",
-    JOptionPane.YES_NO_OPTION,
-    JOptionPane.QUESTION_MESSAGE,
-    null,
-    new Object[] {"Retry", "Dashboard"},
-    "Retry");
-
-
-    if (choice == JOptionPane.YES_OPTION) {
-        // Retake the quiz: reset the quiz
-        resetQuiz();
-    } else if (choice == JOptionPane.NO_OPTION) {
-        // Go back to the dashboard: close the current frame and show the dashboard
-        this.setVisible(false);
-        FrmDashboard frmdashboard = new FrmDashboard(username, role); // Assuming you have a DashboardFrame class
-        frmdashboard.setVisible(true);
+        if (choice == JOptionPane.YES_OPTION) {
+            resetQuiz();
+        } else if (choice == JOptionPane.NO_OPTION) {
+            this.setVisible(false);
+            FrmDashboard frmdashboard = new FrmDashboard(username, role);
+            frmdashboard.setVisible(true);
+        }
     }
-}
-  private void resetQuiz() {
-    // Reset quiz variables
-    currentQuestionIndex = 0;
-    correctAnswers = 0;
-    timeLeft = 300; // Reset to 5 minutes (300 seconds)
-    
-    // Reload questions if needed (if it's not already stored in a static variable)
-    loadQuestions();
-    
-    // Restart the timer
-    startTimer();
-    
-    // Display the first question
-    displayQuestion();
-    
-}
+ private void resetQuiz() {
+        currentQuestionIndex = 0;
+        correctAnswers = 0;
+        timeLeft = 300;
+        resultSummary.clear(); // Reset the summary
+        loadQuestions();
+        startTimer();
+        displayQuestion();
+    }
 
     // Show a recommendation based on score
 private void showRecommendation(int score) {
@@ -240,14 +269,16 @@ private void loadQuestions() {
     }
 }
     // Button actions for answers (you can attach this to all the choice buttons)
-    private void checkAnswer(String selectedAnswer) {
-        String correctAnswer = questions[currentQuestionIndex].getCorrectAnswer();
-        if (selectedAnswer.equals(correctAnswer)) {
-            correctAnswers++;
-        }
-        currentQuestionIndex++;
-        displayQuestion(); // Move to next question
+   private void checkAnswer(String selectedAnswer) {
+    String correctAnswer = questions[currentQuestionIndex].getCorrectAnswer();
+    boolean isCorrect = selectedAnswer.equals(correctAnswer);
+    answerResults.add(isCorrect); // Track correctness
+    if (isCorrect) {
+        correctAnswers++;
     }
+    currentQuestionIndex++;
+    displayQuestion(); // Move to next question
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -388,12 +419,14 @@ private void loadQuestions() {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        
+         
             // Check if no option is selected
     if (!choice1.isSelected() && !choice2.isSelected() && !choice3.isSelected() && !choice4.isSelected()) {
         JOptionPane.showMessageDialog(this, "Please select an answer before proceeding.");
         return; // Prevent moving to the next question
     }
+
+        
 // Check if there are more questions to answer
         if (currentQuestionIndex < questions.length) {
             // Check selected answer

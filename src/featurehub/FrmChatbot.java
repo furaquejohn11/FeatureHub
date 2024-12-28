@@ -7,6 +7,7 @@ package featurehub;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JButton;
 
 /**
  *
@@ -18,6 +19,9 @@ public class FrmChatbot extends javax.swing.JFrame {
     private final Map<String, String> responseMap; // Store predefined responses
     private final String username;
     private final String role;
+    
+     private final String[] suggestions;
+     private String suggestion;
               
     /**
      * Creates new form ChatbotFrame
@@ -27,6 +31,8 @@ public class FrmChatbot extends javax.swing.JFrame {
      */
     
     public FrmChatbot(String username, String role) {
+        this.suggestion = "";
+        this.suggestions = new String[]{"Ano ang mga produkto?", "Magkano ang mga sapatos?", "Saan ang inyong lokasyon?", "May mga promo ba?", "Puwede bang mag-ibaliko ng produkto?", "Anong mga electronics ang mayroon kayo?"};
         this.username = username;
         this.role = role;
         this.responseMap = initializeResponses();
@@ -44,7 +50,8 @@ public class FrmChatbot extends javax.swing.JFrame {
 
         // Start conversation
         addConversation(chatbotName, "Kumusta! Ako si DeptBot, ang iyong gabay sa department store. Ano ang maitutulong ko sa iyo?");
-
+           
+       
      
     }
     
@@ -53,32 +60,33 @@ public class FrmChatbot extends javax.swing.JFrame {
     // Initialize chatbot responses  
 private Map<String, String> initializeResponses() {  
     Map<String, String> map = new HashMap<>();  
-    map.put("ano ang mga produkto", "Mayroon kaming malawak na pagpipilian ng mga produkto tulad ng damit (simula PHP 199), sapatos (simula PHP 499), gamit sa bahay, electronics, groceries, at marami pang iba. May specific ka bang hinahanap?");  
-    map.put("magkano", "Depende po ito sa produkto. Halimbawa, ang t-shirts ay nagsisimula sa PHP 199, ang mga sports shoes ay PHP 999 pataas, at ang mga appliances tulad ng blender ay nasa PHP 1,500. Ano po ang nais mong malaman ang presyo?");  
-    map.put("oras", "Ang aming store ay bukas mula Lunes hanggang Linggo, 9:00 AM hanggang 9:00 PM. Magandang bumisita sa umaga para iwas sa pila!");  
-    map.put("lokasyon", "Ang aming department store ay matatagpuan sa gitna ng siyudad, malapit sa pangunahing parke. Malapit kami sa San Pablo City Plaza. Hanapin mo ang malaking signage namin!");  
-    map.put("return", "Walang problema! Ang produkto ay maaaring ibalik o i-exchange sa loob ng 7 araw, basta’t kumpleto ang resibo at nasa maayos pa itong kondisyon. Halimbawa, ang damit na hindi tama ang sukat ay maaaring palitan basta hindi pa ito nagamit.");  
-    map.put("ibalik", "Oo, tinatanggap namin ang returns. Siguraduhin lamang na mayroon kang resibo. Ang mga nasirang electronics ay maaaring palitan basta’t covered pa ng warranty.");  
-    map.put("sale", "Excited ka ba sa sale? May malaking discount kami ngayong linggo! Halimbawa, ang LED TVs ay may discount na hanggang 30% off, at ang Buy 1 Take 1 promo namin para sa mga t-shirts ay available na.");  
-    map.put("promo", "May mga ongoing promo kami! Siguraduhin mong makita ang aming 'Buy 1 Take 1' deals sa mga casual wear at 20% off sa kitchen appliances. Sulit ang shopping mo ngayong linggo!");  
-    map.put("damit", "Ang aming clothing section ay may mga bagong t-shirts na nagsisimula sa PHP 199, dresses na nasa PHP 499 pataas, at jackets na PHP 799. Maraming style na mapagpipilian!");  
-    map.put("sapatos", "Ang aming sapatos ay nagsisimula sa PHP 499. May sports shoes (PHP 999), leather shoes (PHP 1,499), at sandals (PHP 399). Siguradong magugustuhan mo ang quality!");  
-    map.put("gamit sa bahay", "Ang gamit sa bahay ay nagsisimula sa PHP 149 para sa kitchen tools. Ang mga appliances tulad ng rice cooker ay nasa PHP 1,199, habang ang vacuum cleaner ay PHP 2,999. May mga bundle offers din kami!");  
-    map.put("babayaran", "Tumatanggap kami ng cash, credit card, debit card, at GCash. Para sa installment plans, maaari rin sa mga appliances kung may credit card ka.");  
-    map.put("contact number", "Kung may iba ka pang tanong, tawagan mo kami sa (02) 123-4567 o mag-email sa support@deptstore.com.");  
-    map.put("numero", "Ang aming contact number ay (02) 123-4567. Bukas kami para sagutin ang iyong mga tanong mula 9:00 AM hanggang 9:00 PM.");  
-    map.put("help", "Kung kailangan mo ng tulong, bisitahin ang aming customer service desk. Friendly ang aming staff na handang tumulong sa iyo!");  
-    map.put("tulong", "Nandito lang kami para tumulong. Pumunta lang sa aming information counter kung kailangan mo ng assistance.");  
-    map.put("thank you", "Walang anuman! Salamat din sa pagtangkilik sa aming department store. Balik ka ulit!");  
-    map.put("salamat", "Salamat din! Nandito lang ako palagi kung may iba kang tanong.");  
-    map.put("hello", "Hello! Paano kita matutulungan ngayon? May hinahanap ka bang partikular?");  
-    map.put("grocery", "Para sa grocery needs mo, may sariwang prutas at gulay kami. Halimbawa, ang apples ay nasa PHP 120/kilo, carrots PHP 80/kilo, at canned goods ay nagsisimula sa PHP 25.");  
-    map.put("electronic", "Kung electronics ang hanap mo, ang mga cellphone ay nagsisimula sa PHP 4,999, laptops sa PHP 15,000, at LED TVs ay may promo na hanggang 30% off. May warranty din lahat ng items!");  
-    map.put("paano makarating", "Madali lang kaming puntahan! Malapit kami sa San Pablo City Plaza. May libreng parking para sa mga customers.");  
-    map.put("may food court ba", "Oo! May food court kami sa ground floor na may mga pagkain tulad ng fried chicken meals (PHP 99), rice bowls (PHP 89), at desserts (PHP 50). Perfect para sa shopping break!");  
-    map.put("may libreng parking", "Oo, mayroon kaming libreng parking space para sa mga customers. Siguraduhin lamang na may resibo ka bago umalis.");  
-    map.put("bagong products", "May bagong dating kaming koleksyon tulad ng trendy dresses sa PHP 699 at mga smart home devices tulad ng smart plugs sa PHP 799.");  
-    map.put("balik kaagad", "Salamat sa pagtangkilik! Kung may ibang tanong ka, huwag kang mag-atubiling magtanong ulit.");  
+    map.put("ano ang mga produkto", "Mayroon kaming malawak na hanay ng mga produkto tulad ng damit (simula PHP 199), sapatos (simula PHP 499), gamit sa bahay, electronics, groceries, at iba pa. May partikular ka bang hinahanap?");  
+    map.put("magkano", "Depende po sa produkto. Halimbawa, ang t-shirts ay nagsisimula sa PHP 199, ang mga sports shoes ay PHP 999 pataas, at ang mga appliances tulad ng blender ay PHP 1,500. May nais ka bang malaman ang presyo?");  
+    map.put("anong oras bukas", "Ang aming store ay bukas mula Lunes hanggang Linggo, 9:00 AM hanggang 9:00 PM. Mainam na pumunta sa umaga para iwas sa pila!");  
+    map.put("saan ang lokasyon", "Makikita ang aming department store sa gitna ng lungsod, malapit sa San Pablo City Plaza. Hanapin lamang ang aming malaking signage!");  
+    map.put("paano mag-return", "Ang produkto ay maaaring ibalik o i-exchange sa loob ng 7 araw, basta't may resibo at nasa maayos pa itong kondisyon. Halimbawa, ang damit na hindi akma ang sukat ay maaaring palitan basta't hindi pa nagamit.");  
+    map.put("tumatanggap ba ng return", "Oo, tumatanggap kami ng returns. Siguraduhin lamang na may resibo ka. Ang mga nasirang electronics ay maaaring palitan kung sakop pa ito ng warranty.");  
+    map.put("may sale ba", "Oo! May sale kami ngayong linggo. Halimbawa, ang LED TVs ay may hanggang 30% discount, at ang t-shirts ay may 'Buy 1 Take 1' promo.");  
+    map.put("ano ang promo ngayon", "May mga ongoing promo kami! Ang 'Buy 1 Take 1' sa casual wear at 20% off sa kitchen appliances ay sulit na sulit!");  
+    map.put("anong klaseng damit ang meron", "Mayroon kaming t-shirts (simula PHP 199), dresses (simula PHP 499), at jackets (simula PHP 799). Maraming estilo at kulay ang mapagpipilian!");  
+    map.put("may sapatos ba", "Oo, mayroon kaming sapatos simula PHP 499. May sports shoes (PHP 999), leather shoes (PHP 1,499), at sandals (PHP 399). Siguradong magugustuhan mo ang kalidad!");  
+    map.put("may gamit ba sa bahay", "Oo, mayroon! Ang mga kitchen tools ay nagsisimula sa PHP 149. Ang rice cooker ay nasa PHP 1,199, at vacuum cleaner ay PHP 2,999. Meron ding bundle offers!");  
+    map.put("paano ang bayaran", "Tumatanggap kami ng cash, credit card, debit card, at GCash. Para sa installment plans, puwedeng gamitin ang credit card mo para sa appliances.");  
+    map.put("ano ang contact number", "Ang aming contact number ay (02) 123-4567. Maaari ka rin mag-email sa support@deptstore.com para sa iba pang tanong.");  
+    map.put("sino ang pwedeng tumulong", "Ang aming customer service desk ay handang tumulong sa anumang kailangan mo. Pumunta lamang sa information counter.");  
+    map.put("may tulong ba", "Oo, nandito kami para tumulong. Pumunta lamang sa information counter kung may katanungan o kailangan ng assistance.");  
+    map.put("salamat", "Walang anuman! Maraming salamat din sa pagtangkilik sa aming department store. Balik ka ulit!");  
+    map.put("hello", "Hello! Ano po ang maitutulong ko? May hinahanap ka bang partikular?");  
+    map.put("may grocery ba", "Oo, mayroon kaming groceries. Halimbawa, ang apples ay PHP 120/kilo, ang carrots ay PHP 80/kilo, at ang canned goods ay nagsisimula sa PHP 25.");  
+    map.put("anong electronics ang meron", "Marami kaming electronics tulad ng cellphones (simula PHP 4,999), laptops (simula PHP 15,000), at LED TVs na may hanggang 30% discount. Lahat ay may warranty!");  
+    map.put("may food court ba", "Oo! May food court kami sa ground floor na nag-aalok ng fried chicken meals (PHP 99), rice bowls (PHP 89), at desserts (PHP 50). Tamang-tama para sa shopping break!");  
+    map.put("may parking ba", "Oo, may libreng parking para sa mga customers. Siguraduhing magpakita ng resibo bago umalis.");  
+    map.put("may bagong products", "May mga bagong dating kaming trendy dresses sa PHP 699 at smart home devices tulad ng smart plugs sa PHP 799.");  
+    map.put("paano makarating", "Madaling puntahan ang aming store! Malapit kami sa San Pablo City Plaza, at may libreng parking para sa mga customers.");  
+    map.put("ano ang presyo ng blender", "Ang mga blender ay nagsisimula sa PHP 1,500. Meron ding mas advanced models na nagkakahalaga ng PHP 2,999.");  
+    map.put("may promo ba sa damit", "Oo, ang aming casual wear ay may 'Buy 1 Take 1' promo. Siguraduhing ma-check ang bagong koleksyon!");  
+    map.put("pwede ba mag-inquire", "Oo naman! Tawagan kami sa (02) 123-4567 o mag-email sa support@deptstore.com. Bukas kami mula 9:00 AM hanggang 9:00 PM.");  
+    map.put("ano ang sale ngayon", "Ngayong linggo, ang mga LED TVs ay may 30% discount, at ang Buy 1 Take 1 promo ay available sa t-shirts.");  
     return map;  
 }
 
@@ -116,9 +124,13 @@ private Map<String, String> initializeResponses() {
     return "Pasensya na, hindi ko maintindihan ang iyong tanong. Maaari bang ulitin o gawing mas detalyado?";
 }
 
+    
+    
 
 
     private FrmChatbot() {
+        this.suggestion = "";
+        this.suggestions = new String[]{"Ano ang mga produkto?", "Magkano ang mga sapatos?", "Saan ang inyong lokasyon?", "May mga promo ba?", "Puwede bang mag-ibaliko ng produkto?", "Anong mga electronics ang mayroon kayo?"};
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -137,6 +149,7 @@ private Map<String, String> initializeResponses() {
         conversationArea = new javax.swing.JTextArea();
         sendButton = new javax.swing.JButton();
         userInputField = new javax.swing.JTextField();
+        suggestionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -171,6 +184,14 @@ private Map<String, String> initializeResponses() {
             }
         });
 
+        suggestionButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        suggestionButton.setText("Chat suggestions");
+        suggestionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suggestionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,7 +200,8 @@ private Map<String, String> initializeResponses() {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(suggestionButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(backButton)
                         .addGap(45, 45, 45))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -198,8 +220,13 @@ private Map<String, String> initializeResponses() {
                 .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sendButton)
-                .addGap(27, 27, 27)
-                .addComponent(backButton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(backButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(suggestionButton)))
                 .addGap(34, 34, 34))
         );
 
@@ -229,6 +256,51 @@ private Map<String, String> initializeResponses() {
     private void userInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userInputFieldActionPerformed
          processUserInput();
     }//GEN-LAST:event_userInputFieldActionPerformed
+
+    private void suggestionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suggestionButtonActionPerformed
+        // Create a modal dialog to display suggestions
+    final javax.swing.JDialog suggestionsDialog = new javax.swing.JDialog(this, "Suggestions", true);
+    suggestionsDialog.setSize(400, 300);
+    suggestionsDialog.setLocationRelativeTo(this);
+
+    // Create a list model and populate it with keys from responseMap
+    javax.swing.DefaultListModel<String> listModel = new javax.swing.DefaultListModel<>();
+    for (String key : responseMap.keySet()) {
+        listModel.addElement(key);
+    }
+
+    // Create a JList to display the suggestions
+    final javax.swing.JList<String> suggestionsList = new javax.swing.JList<>(listModel);
+    suggestionsList.setFont(new java.awt.Font("Tahoma", 0, 16));
+
+    // Add the JList to a scroll pane
+    javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(suggestionsList);
+
+    // Add a button to select a suggestion
+    javax.swing.JButton selectButton = new javax.swing.JButton("Select");
+    selectButton.setFont(new java.awt.Font("Tahoma", 0, 16));
+
+    // Add an action listener for the button
+    selectButton.addActionListener(new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            String selectedSuggestion = suggestionsList.getSelectedValue();
+            if (selectedSuggestion != null) {
+                userInputField.setText(selectedSuggestion); // Set the selected suggestion in the input field
+                suggestionsDialog.dispose(); // Close the dialog
+            }
+        }
+    });
+
+    // Add components to the dialog
+    javax.swing.JPanel dialogPanel = new javax.swing.JPanel();
+    dialogPanel.setLayout(new java.awt.BorderLayout());
+    dialogPanel.add(scrollPane, java.awt.BorderLayout.CENTER);
+    dialogPanel.add(selectButton, java.awt.BorderLayout.SOUTH);
+
+    suggestionsDialog.add(dialogPanel);
+    suggestionsDialog.setVisible(true);
+    }//GEN-LAST:event_suggestionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,6 +346,7 @@ private Map<String, String> initializeResponses() {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton sendButton;
+    private javax.swing.JButton suggestionButton;
     private javax.swing.JTextField userInputField;
     // End of variables declaration//GEN-END:variables
 }
