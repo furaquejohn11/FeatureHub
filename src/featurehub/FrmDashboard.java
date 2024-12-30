@@ -261,7 +261,7 @@ public class FrmDashboard extends javax.swing.JFrame {
         lblRole.setForeground(new java.awt.Color(255, 255, 255));
         lblRole.setText("jLabel1");
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(25, 29, 34));
 
         exitBtn.setBackground(new java.awt.Color(255, 255, 255));
         exitBtn.setBorder(null);

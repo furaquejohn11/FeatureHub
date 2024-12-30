@@ -186,7 +186,7 @@ public class FrmSignup extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(25, 29, 34));
 
         exitBtn.setBackground(new java.awt.Color(255, 255, 255));
         exitBtn.setBorder(null);

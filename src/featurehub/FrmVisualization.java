@@ -44,6 +44,8 @@ public class FrmVisualization extends javax.swing.JFrame {
      * @param role
      */
     public FrmVisualization(String username, String role) {
+        this.setUndecorated(true); // Removes the title bar
+        
         initComponents();
         this.username = username;
         this.role = role;
@@ -82,6 +84,7 @@ public class FrmVisualization extends javax.swing.JFrame {
         setContentPane(mainPanel);
         
     }
+    
 
     private FrmVisualization() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -90,7 +93,12 @@ public class FrmVisualization extends javax.swing.JFrame {
     
    private void setupFrame() {
         setTitle("LSPU SPCC Enrollment Monitoring System");
-        setSize(1200, 800);
+        // Maximize the frame
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        // Ensure the frame occupies the entire screen dynamically based on device size
+        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }

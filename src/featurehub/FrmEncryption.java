@@ -4,9 +4,14 @@
  * and open the template in the editor.
  */
 package featurehub;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import utils.SecurityUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -19,6 +24,10 @@ public class FrmEncryption extends javax.swing.JFrame {
     private String role;
     private SecurityUtil securityUtil;
     private static final Logger LOGGER = Logger.getLogger(FrmEncryption.class.getName());
+    
+    // Declare the button and icons
+    private ImageIcon defaultIcon;
+    private ImageIcon hoverIcon;
     /**
      * Creates new form EncryptionFrame
      * @param username
@@ -26,11 +35,12 @@ public class FrmEncryption extends javax.swing.JFrame {
      */
     public FrmEncryption(String username, String role)
     {
+        this.setUndecorated(true); // Removes the title bar
+        
         initComponents();
         this.username = username;
         this.role = role;
         this.setLocationRelativeTo(null);
-        
         try {
             securityUtil = new SecurityUtil();
         } catch (Exception e) {
@@ -43,13 +53,50 @@ public class FrmEncryption extends javax.swing.JFrame {
             btnEncrypt.setEnabled(false);
             btnDecrypt.setEnabled(false);
         }
+        setFullScreen(); // Set the frame into fullscreen
+        
+        // Load the Icons
+        defaultIcon = new ImageIcon(getClass().getResource("/featurehub/Icons/ExitDefaultIcon.png"));  // Replace with your default icon path
+        hoverIcon = new ImageIcon(getClass().getResource("/featurehub/Icons/ExitHoverIconEncryptandDecrypt.png")); // Replace with your hover icon path
+        
+        exitBtn.setIcon(defaultIcon);
+
+        addHoverEffectToExitButton(); // Method to change the color of the exit button when you hover
 
     }
     public FrmEncryption() {
         initComponents();
     }
     
- 
+    // Set the Frame into Full Screen
+    private void setFullScreen() {
+        // Maximize the frame
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        // Ensure the frame occupies the entire screen dynamically based on device size
+        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+        // Optionally, center the frame
+        this.setLocationRelativeTo(null);
+
+        // Ensure the frame is resizable (optional)
+        this.setResizable(true);
+    }
+    
+    // Add hover effect to exit button
+    private void addHoverEffectToExitButton() {
+        exitBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exitBtn.setIcon(hoverIcon); // Change to hover icon
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exitBtn.setIcon(defaultIcon); // Revert to default icon
+            }
+        });
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,134 +121,182 @@ public class FrmEncryption extends javax.swing.JFrame {
         txtaDecrypted = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtaEncrypted = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        exitBtn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(9, 30, 13));
 
-        backButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        backButton.setBackground(new java.awt.Color(45, 109, 57));
+        backButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        backButton.setForeground(new java.awt.Color(255, 255, 255));
         backButton.setText("Back");
+        backButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(45, 109, 57)));
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
 
-        txtEncrypt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtEncrypt.setBackground(new java.awt.Color(157, 198, 165));
+        txtEncrypt.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtEncrypt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(157, 198, 165)));
 
-        txtDecrypt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtDecrypt.setBackground(new java.awt.Color(157, 198, 165));
+        txtDecrypt.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtDecrypt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(157, 198, 165)));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Entry encryptext text to decrypt");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Enter text to encrypt");
 
+        btnEncrypt.setBackground(new java.awt.Color(45, 109, 57));
         btnEncrypt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnEncrypt.setForeground(new java.awt.Color(255, 255, 255));
         btnEncrypt.setText("Encrypt");
+        btnEncrypt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(45, 109, 57)));
         btnEncrypt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEncryptActionPerformed(evt);
             }
         });
 
+        btnDecrypt.setBackground(new java.awt.Color(45, 109, 57));
         btnDecrypt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnDecrypt.setForeground(new java.awt.Color(255, 255, 255));
         btnDecrypt.setText("Decrypt");
+        btnDecrypt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(45, 109, 57)));
         btnDecrypt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDecryptActionPerformed(evt);
             }
         });
 
-        lblEncryptedText.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblEncryptedText.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lblEncryptedText.setForeground(new java.awt.Color(255, 255, 255));
         lblEncryptedText.setText("Encrypted text");
 
-        lblDecryptedText.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblDecryptedText.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lblDecryptedText.setForeground(new java.awt.Color(255, 255, 255));
         lblDecryptedText.setText("Decrypted text");
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(157, 198, 165)));
+
+        txtaDecrypted.setBackground(new java.awt.Color(157, 198, 165));
         txtaDecrypted.setColumns(20);
+        txtaDecrypted.setFont(new java.awt.Font("Monospaced", 0, 24)); // NOI18N
         txtaDecrypted.setRows(5);
         jScrollPane1.setViewportView(txtaDecrypted);
 
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(157, 198, 165)));
+
+        txtaEncrypted.setBackground(new java.awt.Color(157, 198, 165));
         txtaEncrypted.setColumns(20);
+        txtaEncrypted.setFont(new java.awt.Font("Monospaced", 0, 24)); // NOI18N
         txtaEncrypted.setRows(5);
         jScrollPane2.setViewportView(txtaEncrypted);
+
+        jPanel2.setBackground(new java.awt.Color(16, 55, 24));
+
+        exitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        exitBtn.setBorder(null);
+        exitBtn.setBorderPainted(false);
+        exitBtn.setContentAreaFilled(false);
+        exitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("FeatureHub | Encryption and Decryption");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exitBtn)
+                .addGap(20, 20, 20))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(exitBtn))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel3)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(backButton)
-                .addGap(45, 45, 45))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(btnEncrypt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDecrypt)
-                .addGap(176, 176, 176))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(143, 143, 143)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(txtEncrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(57, 57, 57))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                            .addComponent(txtDecrypt))
-                        .addGap(103, 103, 103))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(lblEncryptedText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblDecryptedText)
-                .addGap(132, 132, 132))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(112, 112, 112)
                     .addComponent(jLabel2)
-                    .addContainerGap(421, Short.MAX_VALUE)))
+                    .addComponent(lblEncryptedText)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEncrypt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEncrypt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDecrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(143, 143, 143))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDecryptedText)
+                            .addComponent(txtDecrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addContainerGap())))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtEncrypt)
+                    .addComponent(txtDecrypt, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEncrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDecrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(166, 166, 166)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEncryptedText)
                     .addComponent(lblDecryptedText))
-                .addGap(58, 58, 58)
-                .addComponent(jLabel1)
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEncrypt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDecrypt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEncrypt)
-                    .addComponent(btnDecrypt))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 12, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(backButton)
-                .addGap(34, 34, 34))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(101, 101, 101)
-                    .addComponent(jLabel2)
-                    .addContainerGap(395, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,19 +309,39 @@ public class FrmEncryption extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        this.setVisible(false);  // Hide the current frame
-        FrmDashboard frmdashboard = new FrmDashboard(username, role);
-        frmdashboard.setVisible(true);
-    }//GEN-LAST:event_backButtonActionPerformed
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitBtnActionPerformed
+
+    private void btnDecryptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDecryptActionPerformed
+        // TODO add your handling code here:
+        String txt = txtDecrypt.getText().trim();
+        if (txt.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "Please enter text to decrypt",
+                "Input Required",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            String decrypted = securityUtil.decryptText(txt);
+            txtaDecrypted.setText(decrypted);
+            // Clear input field after successful decryption
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Decryption failed", e);
+            JOptionPane.showMessageDialog(this,
+                "Failed to decrypt text. Please ensure you entered valid encrypted text.",
+                "Decryption Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDecryptActionPerformed
 
     private void btnEncryptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncryptActionPerformed
         // TODO add your handling code here:
@@ -252,29 +367,11 @@ public class FrmEncryption extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEncryptActionPerformed
 
-    private void btnDecryptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDecryptActionPerformed
-        // TODO add your handling code here:
-         String txt = txtDecrypt.getText().trim();
-        if (txt.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Please enter text to decrypt",
-                "Input Required",
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            String decrypted = securityUtil.decryptText(txt);
-            txtaDecrypted.setText(decrypted);
-            // Clear input field after successful decryption
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Decryption failed", e);
-            JOptionPane.showMessageDialog(this,
-                "Failed to decrypt text. Please ensure you entered valid encrypted text.",
-                "Decryption Error",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnDecryptActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.setVisible(false);  // Hide the current frame
+        FrmDashboard frmdashboard = new FrmDashboard(username, role);
+        frmdashboard.setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,9 +413,12 @@ public class FrmEncryption extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JButton btnDecrypt;
     private javax.swing.JButton btnEncrypt;
+    private javax.swing.JButton exitBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDecryptedText;

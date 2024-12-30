@@ -5,23 +5,34 @@
  */
 package featurehub;
 
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  *
  * @author daved
  */
 public class FrmChatbot extends javax.swing.JFrame {
-     private final String chatbotName = "DeptBot";
+    private final String chatbotName = "DeptBot";
     
     private final Map<String, String> responseMap; // Store predefined responses
     private final String username;
     private final String role;
     
-     private final String[] suggestions;
-     private String suggestion;
+    private final String[] suggestions;
+    private String suggestion;
+    
+    // Declare the button and icons
+    private ImageIcon defaultIcon;
+    private ImageIcon hoverIcon;
+    private Object scrollPane;
               
     /**
      * Creates new form ChatbotFrame
@@ -31,6 +42,8 @@ public class FrmChatbot extends javax.swing.JFrame {
      */
     
     public FrmChatbot(String username, String role) {
+        this.setUndecorated(true); // Removes the title bar
+        
         this.suggestion = "";
         this.suggestions = new String[]{"Ano ang mga produkto?", "Magkano ang mga sapatos?", "Saan ang inyong lokasyon?", "May mga promo ba?", "Puwede bang mag-ibaliko ng produkto?", "Anong mga electronics ang mayroon kayo?"};
         this.username = username;
@@ -38,8 +51,17 @@ public class FrmChatbot extends javax.swing.JFrame {
         this.responseMap = initializeResponses();
         initComponents();
         this.setLocationRelativeTo(null);
-        setTitle("Chatbot - Department Store");
-        this.setSize(665,531); // Explicitly set size
+        
+        setFullScreen(); // Set the frame into fullscreen
+        
+        // Load the Icons
+        defaultIcon = new ImageIcon(getClass().getResource("/featurehub/Icons/ExitDefaultIcon.png"));  // Replace with your default icon path
+        hoverIcon = new ImageIcon(getClass().getResource("/featurehub/Icons/ExitHoverIconChatbot.png")); // Replace with your hover icon path
+        
+        exitBtn.setIcon(defaultIcon);
+
+        addHoverEffectToExitButton(); // Method to change the color of the exit button when you hover
+        
         conversationArea.setEditable(false);
         conversationArea.setColumns(20);
         conversationArea.setFont(new java.awt.Font("Tahoma", 0, 24)); // Font size and style
@@ -50,11 +72,37 @@ public class FrmChatbot extends javax.swing.JFrame {
 
         // Start conversation
         addConversation(chatbotName, "Kumusta! Ako si DeptBot, ang iyong gabay sa department store. Ano ang maitutulong ko sa iyo?");
-           
-       
-     
     }
     
+    // Set the Frame into Full Screen
+    private void setFullScreen() {
+        // Maximize the frame
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        // Ensure the frame occupies the entire screen dynamically based on device size
+        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+        // Optionally, center the frame
+        this.setLocationRelativeTo(null);
+
+        // Ensure the frame is resizable (optional)
+        this.setResizable(true);
+    }
+    
+    // Add hover effect to exit button
+    private void addHoverEffectToExitButton() {
+        exitBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exitBtn.setIcon(hoverIcon); // Change to hover icon
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exitBtn.setIcon(defaultIcon); // Revert to default icon
+            }
+        });
+    }
     
   
     // Initialize chatbot responses  
@@ -150,95 +198,152 @@ private Map<String, String> initializeResponses() {
         sendButton = new javax.swing.JButton();
         userInputField = new javax.swing.JTextField();
         suggestionButton = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        exitBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(19, 28, 39));
 
-        backButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        backButton.setBackground(new java.awt.Color(46, 90, 112));
+        backButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        backButton.setForeground(new java.awt.Color(255, 255, 255));
         backButton.setText("Back");
+        backButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(46, 90, 112)));
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(48, 61, 77)));
+
         conversationArea.setEditable(false);
+        conversationArea.setBackground(new java.awt.Color(48, 61, 77));
         conversationArea.setColumns(20);
-        conversationArea.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        conversationArea.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        conversationArea.setForeground(new java.awt.Color(255, 255, 255));
         conversationArea.setRows(5);
+        conversationArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(48, 61, 77)));
         jScrollPane1.setViewportView(conversationArea);
 
-        sendButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        sendButton.setBackground(new java.awt.Color(25, 105, 146));
+        sendButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        sendButton.setForeground(new java.awt.Color(255, 255, 255));
         sendButton.setText("Send");
+        sendButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 105, 146)));
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendButtonActionPerformed(evt);
             }
         });
 
-        userInputField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        userInputField.setBackground(new java.awt.Color(19, 28, 39));
+        userInputField.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        userInputField.setForeground(new java.awt.Color(255, 255, 255));
+        userInputField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(48, 61, 77), 2, true));
         userInputField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userInputFieldActionPerformed(evt);
             }
         });
 
-        suggestionButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        suggestionButton.setBackground(new java.awt.Color(76, 124, 148));
+        suggestionButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        suggestionButton.setForeground(new java.awt.Color(255, 255, 255));
         suggestionButton.setText("Chat suggestions");
+        suggestionButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(76, 124, 148)));
         suggestionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 suggestionButtonActionPerformed(evt);
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(41, 64, 91));
+
+        exitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        exitBtn.setBorder(null);
+        exitBtn.setBorderPainted(false);
+        exitBtn.setContentAreaFilled(false);
+        exitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("FeatureHub | Chatbot");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exitBtn)
+                .addGap(20, 20, 20))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(exitBtn))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(suggestionButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(backButton)
-                        .addGap(45, 45, 45))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(sendButton)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                            .addComponent(userInputField))
-                        .addGap(0, 37, Short.MAX_VALUE))))
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(userInputField)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(suggestionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1812, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sendButton)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(backButton))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(suggestionButton)))
-                .addGap(34, 34, 34))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(suggestionButton)
+                    .addComponent(sendButton))
+                .addGap(38, 38, 38)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -302,6 +407,10 @@ private Map<String, String> initializeResponses() {
     suggestionsDialog.setVisible(true);
     }//GEN-LAST:event_suggestionButtonActionPerformed
 
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -343,7 +452,10 @@ private Map<String, String> initializeResponses() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JTextArea conversationArea;
+    private javax.swing.JButton exitBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton sendButton;
     private javax.swing.JButton suggestionButton;

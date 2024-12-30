@@ -133,7 +133,6 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
 
         jPanel1.setBackground(new java.awt.Color(49, 55, 62));
         jPanel1.setPreferredSize(new java.awt.Dimension(1920, 1080));
@@ -203,7 +202,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(25, 29, 34));
 
         exitBtn.setBackground(new java.awt.Color(255, 255, 255));
         exitBtn.setBorder(null);
