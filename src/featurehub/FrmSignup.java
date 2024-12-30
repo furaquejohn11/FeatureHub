@@ -8,6 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*; 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import sql.AccountRepository;
 
@@ -21,9 +25,55 @@ public class FrmSignup extends javax.swing.JFrame {
      * Creates new form FrmSignup
      */
     AccountRepository account = new AccountRepository();
+    
+    // Declare the button and icons
+    private ImageIcon defaultIcon;
+    private ImageIcon hoverIcon;
+    
     public FrmSignup() {
+        this.setUndecorated(true); // Removes the title bar
+        
         initComponents();
+        // Load the Icons
+        defaultIcon = new ImageIcon(getClass().getResource("/featurehub/Icons/ExitDefaultIcon.png"));  // Replace with your default icon path
+        hoverIcon = new ImageIcon(getClass().getResource("/featurehub/Icons/ExitHoverIcon.png")); // Replace with your hover icon path
+        
+        exitBtn.setIcon(defaultIcon);
+        
+        addHoverEffectToExitButton(); // Method to change the color of the exit button when you hover
+        
         this.setLocationRelativeTo(null);
+        setFullScreen(); // Set the frame into fullscreen
+    }
+    
+    // Set the Frame into Full Screen
+    private void setFullScreen() {
+        // Maximize the frame
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        // Ensure the frame occupies the entire screen dynamically based on device size
+        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+        // Optionally, center the frame
+        this.setLocationRelativeTo(null);
+
+        // Ensure the frame is resizable (optional)
+        this.setResizable(true);
+    }
+    
+    // Add hover effect to exit button
+    private void addHoverEffectToExitButton() {
+        exitBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exitBtn.setIcon(hoverIcon); // Change to hover icon
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exitBtn.setIcon(defaultIcon); // Revert to default icon
+            }
+        });
     }
     
     private void MsgAlert(String msg, int icon, String title)
@@ -52,7 +102,7 @@ public class FrmSignup extends javax.swing.JFrame {
     }
     private void togglePasswordVisibility() {
         if (txtPassword.getEchoChar() == (char) 0) {
-            txtPassword.setEchoChar('*'); // Hide password
+            txtPassword.setEchoChar('•'); // Hide password
         } else {
             txtPassword.setEchoChar((char) 0); // Show password
         }
@@ -77,9 +127,12 @@ public class FrmSignup extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cbRole = new javax.swing.JComboBox();
         btnSignup = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         chbPassVisibility = new javax.swing.JCheckBox();
+        jPanel2 = new javax.swing.JPanel();
+        exitBtn = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,7 +146,7 @@ public class FrmSignup extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("First Name:");
+        jLabel1.setText("First Name");
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -101,7 +154,7 @@ public class FrmSignup extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Username:");
+        jLabel3.setText("Username");
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -121,10 +174,6 @@ public class FrmSignup extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("FeatureHub");
-
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         chbPassVisibility.setBackground(new java.awt.Color(49, 55, 62));
@@ -137,41 +186,85 @@ public class FrmSignup extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        exitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        exitBtn.setBorder(null);
+        exitBtn.setBorderPainted(false);
+        exitBtn.setContentAreaFilled(false);
+        exitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("FeatureHub");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exitBtn)
+                .addGap(20, 20, 20))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(exitBtn))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 25)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Sign up");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(378, 378, 378))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(259, 259, 259)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(chbPassVisibility)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel3)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(txtUsername)
-                        .addComponent(cbRole, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPassword)))
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(733, 733, 733)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(chbPassVisibility)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtUsername)
+                                .addComponent(cbRole, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(904, 904, 904)
+                        .addComponent(jLabel6)))
+                .addGap(0, 769, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel5)
-                .addGap(41, 41, 41)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(250, 250, 250)
+                .addComponent(jLabel6)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2))
@@ -185,7 +278,7 @@ public class FrmSignup extends javax.swing.JFrame {
                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chbPassVisibility, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,7 +286,7 @@ public class FrmSignup extends javax.swing.JFrame {
                 .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(btnSignup)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -230,6 +323,7 @@ public class FrmSignup extends javax.swing.JFrame {
         if (account.isUsernameExisting(username))
         {
             MsgAlert("Username already exist! Try another one.", JOptionPane.ERROR_MESSAGE, role);
+            txtUsername.setText("");
             return;
         }
         
@@ -237,6 +331,7 @@ public class FrmSignup extends javax.swing.JFrame {
         {
             MsgAlert("Password must have length of 8, with uppercase, lowercase and numbers!", 
                     JOptionPane.ERROR_MESSAGE, role);
+            txtPassword.setText("");
             return;
         }
         
@@ -245,11 +340,17 @@ public class FrmSignup extends javax.swing.JFrame {
                     JOptionPane.INFORMATION_MESSAGE, role);
         
         this.dispose();
+        FrmLogin login = new FrmLogin();
+        login.setVisible(true);
     }//GEN-LAST:event_btnSignupActionPerformed
 
     private void chbPassVisibilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbPassVisibilityActionPerformed
         togglePasswordVisibility();
     }//GEN-LAST:event_chbPassVisibilityActionPerformed
+
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,12 +392,15 @@ public class FrmSignup extends javax.swing.JFrame {
     private javax.swing.JButton btnSignup;
     private javax.swing.JComboBox cbRole;
     private javax.swing.JCheckBox chbPassVisibility;
+    private javax.swing.JButton exitBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtFirstname;
     private javax.swing.JTextField txtLastname;
     private javax.swing.JPasswordField txtPassword;

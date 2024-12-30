@@ -258,7 +258,7 @@ private Map<String, String> initializeResponses() {
     }//GEN-LAST:event_userInputFieldActionPerformed
 
     private void suggestionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suggestionButtonActionPerformed
-        // Create a modal dialog to display suggestions
+    // Create a modal dialog to display suggestions
     final javax.swing.JDialog suggestionsDialog = new javax.swing.JDialog(this, "Suggestions", true);
     suggestionsDialog.setSize(400, 300);
     suggestionsDialog.setLocationRelativeTo(this);
