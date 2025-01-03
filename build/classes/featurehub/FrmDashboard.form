@@ -55,7 +55,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="logoutButton" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="btnLogout" min="-2" pref="200" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="lblUser" min="-2" max="-2" attributes="0"/>
@@ -101,7 +101,7 @@
                       </Group>
                   </Group>
                   <EmptySpace pref="157" max="32767" attributes="0"/>
-                  <Component id="logoutButton" min="-2" pref="44" max="-2" attributes="0"/>
+                  <Component id="btnLogout" min="-2" pref="44" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -226,7 +226,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEncryptDecryptActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="logoutButton">
+        <Component class="javax.swing.JButton" name="btnLogout">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="21" green="24" red="23" type="rgb"/>
@@ -247,7 +247,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCredits">

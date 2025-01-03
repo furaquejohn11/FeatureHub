@@ -32,6 +32,7 @@ public class FrmQuiz extends javax.swing.JFrame {
     private int timeLeft = 300; // 5 minutes in seconds
     private int currentQuestionIndex = 0;
     private int correctAnswers = 0;
+    private int quizCount = 1;
     private Question[] questions;
     private Timer timer; // Declare the timer here as an instance variable
     private ButtonGroup group;
@@ -65,7 +66,7 @@ public class FrmQuiz extends javax.swing.JFrame {
 
         addHoverEffectToExitButton(); // Method to change the color of the exit button when you hover
       
-        
+        lblQuizCounter.setText(quizCount + " / 17");
         
         group.add(choice1);
         group.add(choice2);
@@ -197,7 +198,7 @@ public class FrmQuiz extends javax.swing.JFrame {
     this.setTitle(progress);
 }
     
-    private void endQuiz() {
+     private void endQuiz() {
         if (timer != null) {
             timer.stop();
         }
@@ -212,24 +213,30 @@ public class FrmQuiz extends javax.swing.JFrame {
         } else {
             remarks = "Failed";
         }
-        
-    
 
-         // Show summary of results
-    StringBuilder summary = new StringBuilder("Quiz Summary:\n\n");
-    for (int i = 0; i < questions.length; i++) {
-        String status = answerResults.get(i) ? "Correct" : "Incorrect";
-        summary.append("Question ").append(i + 1).append(": ").append(status).append("\n");
-    }
-    JOptionPane.showMessageDialog(this, summary.toString(), "Quiz Summary", JOptionPane.INFORMATION_MESSAGE);
-// Show results
-    JOptionPane.showMessageDialog(this,
-        "Quiz Finished!\n" +
-        "Your Score: " + correctAnswers + "/17\n" +
-        "Remarks: " + remarks);
-    // Show recommendation
-    showRecommendation(correctAnswers);
-        // Ask the user for next steps
+        // Show detailed summary of results
+        StringBuilder summary = new StringBuilder("Quiz Summary:\n\n");
+        for (int i = 0; i < resultSummary.size(); i++) {
+            summary.append(resultSummary.get(i)).append("\n");
+        }
+        
+        // Add overall score at the end
+        summary.append("\nTotal Score: ").append(correctAnswers).append("/17");
+        
+        // Show the detailed summary first
+        JOptionPane.showMessageDialog(this, summary.toString(), 
+            "Quiz Summary", JOptionPane.INFORMATION_MESSAGE);
+
+        // Then show final score and remarks
+        JOptionPane.showMessageDialog(this,
+            "Quiz Finished!\n" +
+            "Your Score: " + correctAnswers + "/17\n" +
+            "Remarks: " + remarks);
+
+        // Show recommendation
+        showRecommendation(correctAnswers);
+
+        // Ask for next steps
         int choice = JOptionPane.showOptionDialog(this,
                 "Would you like to retry or return to the dashboard?",
                 "Quiz Complete",
@@ -247,14 +254,18 @@ public class FrmQuiz extends javax.swing.JFrame {
             frmdashboard.setVisible(true);
         }
     }
- private void resetQuiz() {
+
+    private void resetQuiz() {
         currentQuestionIndex = 0;
         correctAnswers = 0;
         timeLeft = 300;
-        resultSummary.clear(); // Reset the summary
+        quizCount = 1;  // Reset to 1 instead of 0
+        answerResults.clear();
+        resultSummary.clear();
         loadQuestions();
-        startTimer();
         displayQuestion();
+        startTimer();
+        lblQuizCounter.setText(quizCount + " / 17");
     }
 
     // Show a recommendation based on score
@@ -297,40 +308,50 @@ private void loadQuestions() {
 
     // Display current question
     private void displayQuestion() {
-    if (currentQuestionIndex < questions.length) {
-        // Get the current question
-        Question currentQuestion = questions[currentQuestionIndex];
-        
-        // Set the question text and choices
-        questionLabel.setText(currentQuestion.getQuestionText());
-        choice1.setText(currentQuestion.getChoices()[0]);
-        choice2.setText(currentQuestion.getChoices()[1]);
-        choice3.setText(currentQuestion.getChoices()[2]);
-        choice4.setText(currentQuestion.getChoices()[3]);
-        
-        // Clear the selection of the radio buttons
-        group.clearSelection();
-        
-        // Disable the Next button until a choice is selected
-        nextButton.setEnabled(false);
+        if (currentQuestionIndex < questions.length) {
+             // Get the current question
+             Question currentQuestion = questions[currentQuestionIndex];
 
-        // Update the progress display
-        updateProgress();
-    } else {
-        //endQuiz(); // End the quiz if no more questions
-    }
+             // Set the question text and choices
+             questionLabel.setText(currentQuestion.getQuestionText());
+             choice1.setText(currentQuestion.getChoices()[0]);
+             choice2.setText(currentQuestion.getChoices()[1]);
+             choice3.setText(currentQuestion.getChoices()[2]);
+             choice4.setText(currentQuestion.getChoices()[3]);
+
+             // Clear the selection of the radio buttons
+             group.clearSelection();
+
+             // Disable the Next button until a choice is selected
+             nextButton.setEnabled(false);
+
+             // Update the progress display
+             updateProgress();
+         } else {
+             endQuiz(); // End the quiz if no more questions
+         }
 }
     // Button actions for answers (you can attach this to all the choice buttons)
-   private void checkAnswer(String selectedAnswer) {
-    String correctAnswer = questions[currentQuestionIndex].getCorrectAnswer();
-    boolean isCorrect = selectedAnswer.equals(correctAnswer);
-    answerResults.add(isCorrect); // Track correctness
-    if (isCorrect) {
-        correctAnswers++;
+    private void checkAnswer(String selectedAnswer) {
+        Question currentQuestion = questions[currentQuestionIndex];
+        boolean isCorrect = selectedAnswer.equals(currentQuestion.getCorrectAnswer());
+        
+        // Add the result to both tracking mechanisms
+        answerResults.add(isCorrect);
+        resultSummary.add("Question " + (currentQuestionIndex + 1) + ": " + 
+                         (isCorrect ? "Correct" : "Incorrect") + 
+                         " (Your answer: " + selectedAnswer + 
+                         ", Correct answer: " + currentQuestion.getCorrectAnswer() + ")");
+        
+        if (isCorrect) {
+            correctAnswers++;
+        }
+        currentQuestionIndex++;
+        
+        if (currentQuestionIndex < questions.length) {
+            displayQuestion();
+        }
     }
-    currentQuestionIndex++;
-    displayQuestion(); // Move to next question
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -353,6 +374,7 @@ private void loadQuestions() {
         jPanel2 = new javax.swing.JPanel();
         exitBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        lblQuizCounter = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         questionLabel = new javax.swing.JLabel();
 
@@ -430,6 +452,10 @@ private void loadQuestions() {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("FeatureHub | Quiz");
 
+        lblQuizCounter.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        lblQuizCounter.setForeground(new java.awt.Color(255, 255, 255));
+        lblQuizCounter.setText("1 / 20");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -437,6 +463,8 @@ private void loadQuestions() {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblQuizCounter)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(exitBtn)
                 .addGap(20, 20, 20))
@@ -450,7 +478,9 @@ private void loadQuestions() {
                         .addComponent(exitBtn))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jLabel1)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lblQuizCounter))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -558,33 +588,35 @@ private void loadQuestions() {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-         
-            // Check if no option is selected
-    if (!choice1.isSelected() && !choice2.isSelected() && !choice3.isSelected() && !choice4.isSelected()) {
-        JOptionPane.showMessageDialog(this, "Please select an answer before proceeding.");
-        return; // Prevent moving to the next question
-    }
+              
+        // Check if no option is selected
+         if (!choice1.isSelected() && !choice2.isSelected() && !choice3.isSelected() && !choice4.isSelected()) {
+             JOptionPane.showMessageDialog(this, "Please select an answer before proceeding.");
+             return; // Prevent moving to the next question
+         }
 
-        
-// Check if there are more questions to answer
-        if (currentQuestionIndex < questions.length) {
-            // Check selected answer
-            if (choice1.isSelected()) {
-                checkAnswer(choice1.getText());
-            } else if (choice2.isSelected()) {
-                checkAnswer(choice2.getText());
-            } else if (choice3.isSelected()) {
-                checkAnswer(choice3.getText());
-            } else if (choice4.isSelected()) {
-                checkAnswer(choice4.getText());
-            }
+         // Check selected answer
+         if (choice1.isSelected()) {
+             checkAnswer(choice1.getText());
+         } else if (choice2.isSelected()) {
+             checkAnswer(choice2.getText());
+         } else if (choice3.isSelected()) {
+             checkAnswer(choice3.getText());
+         } else if (choice4.isSelected()) {
+             checkAnswer(choice4.getText());
+         }
 
-            // Move to next question
-            displayQuestion();
-        } else {
-            // End the quiz if there are no more questions
-            endQuiz();
-        }
+         // Increment quiz counter only if we haven't reached the end
+         if (currentQuestionIndex < questions.length) {
+             quizCount++;
+             lblQuizCounter.setText(quizCount + " / 17");
+             displayQuestion();
+         }
+
+         // If we've reached the last question (after checking the answer)
+         if (currentQuestionIndex >= questions.length) {
+             endQuiz();
+         }
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
@@ -638,6 +670,7 @@ private void loadQuestions() {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblQuizCounter;
     private javax.swing.JButton nextButton;
     private javax.swing.JLabel questionLabel;
     private javax.swing.JLabel timerLabel;

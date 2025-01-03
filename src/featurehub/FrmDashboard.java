@@ -133,6 +133,7 @@ public class FrmDashboard extends javax.swing.JFrame {
             // Disable other buttons for GUEST
             btnQuiz.setEnabled(false);
             btnChatbot.setEnabled(false);
+            btnLogout.setText("Go to Sign in");
             break;
             
             case "Admin":
@@ -171,7 +172,7 @@ public class FrmDashboard extends javax.swing.JFrame {
         btnVisualization = new javax.swing.JButton();
         btnChatbot = new javax.swing.JButton();
         btnEncryptDecrypt = new javax.swing.JButton();
-        logoutButton = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         btnCredits = new javax.swing.JButton();
         lblRole = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -235,14 +236,14 @@ public class FrmDashboard extends javax.swing.JFrame {
             }
         });
 
-        logoutButton.setBackground(new java.awt.Color(35, 36, 33));
-        logoutButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
-        logoutButton.setText("Log out");
-        logoutButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(35, 36, 33)));
-        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout.setBackground(new java.awt.Color(35, 36, 33));
+        btnLogout.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setText("Log out");
+        btnLogout.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(35, 36, 33)));
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButtonActionPerformed(evt);
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -310,7 +311,7 @@ public class FrmDashboard extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(lblUser)
@@ -347,7 +348,7 @@ public class FrmDashboard extends javax.swing.JFrame {
                         .addComponent(btnChatbot, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnVisualization, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(97, 97, 97))
         );
 
@@ -365,10 +366,10 @@ public class FrmDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         dispose();
                 new FrmLogin().setVisible(true);
-    }//GEN-LAST:event_logoutButtonActionPerformed
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuizActionPerformed
        
@@ -448,6 +449,7 @@ public class FrmDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnChatbot;
     private javax.swing.JButton btnCredits;
     private javax.swing.JButton btnEncryptDecrypt;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnQuiz;
     private javax.swing.JButton btnVisualization;
     private javax.swing.JButton exitBtn;
@@ -456,7 +458,6 @@ public class FrmDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblUser;
-    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel timeLabel;
     // End of variables declaration//GEN-END:variables
 }
