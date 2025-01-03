@@ -44,52 +44,56 @@ public class FrmVisualization extends javax.swing.JFrame {
      * @param role
      */
     public FrmVisualization(String username, String role) {
-        this.setUndecorated(true); // Removes the title bar
-        
-        initComponents();
-        this.username = username;
-        this.role = role;
-        
-         // Initialize data structures
-        departmentData = new HashMap<>();
-        yearData = new HashMap<>();
-        genderData = new HashMap<>();
-        regionData = new HashMap<>();
-        
-        // Load initial data
-        loadSampleData();
-        
-        // Setting JFrame properties
-        setupFrame();
-        
-        // Create main panel with BorderLayout
-        mainPanel = new JPanel(new BorderLayout());
-        
-        // Create charts panel
-        chartsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-        chartsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
-        // Add charts
-        chartsPanel.add(createBarChartPanel());
-        chartsPanel.add(createPieChartPanel());
-        chartsPanel.add(createBarChartPanel2());
-        chartsPanel.add(createPieChartPanel2());
-        
-        // Add panels to main panel
-        mainPanel.add(createHeaderPanel(), BorderLayout.NORTH);
-        mainPanel.add(chartsPanel, BorderLayout.CENTER);
-        mainPanel.add(createControlPanel(), BorderLayout.SOUTH);
-        
-        // Add main panel to frame
-        setContentPane(mainPanel);
-        
-    }
+    this.username = username;
+    this.role = role;
+    
+    // Initialize basic frame properties first
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setUndecorated(true);
+    setTitle("LSPU SPCC Enrollment Monitoring System");
+    setExtendedState(JFrame.MAXIMIZED_BOTH);
+    
+    // Initialize components
+    initComponents();
+    
+    // Initialize data structures
+    departmentData = new HashMap<>();
+    yearData = new HashMap<>();
+    genderData = new HashMap<>();
+    regionData = new HashMap<>();
+    loadSampleData();
+    
+    // Set up panels with dark theme
+    mainPanel = new JPanel(new BorderLayout());
+    mainPanel.setBackground(new Color(45, 51, 56));
+    
+    chartsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+    chartsPanel.setBackground(new Color(45, 51, 56));
+    chartsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    
+    // Add charts and panels
+    setupCharts();
+    setupLayout();
+    
+    setLocationRelativeTo(null);
+}
     
 
     private FrmVisualization() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+private void setupCharts() {
+    chartsPanel.add(createBarChartPanel());
+    chartsPanel.add(createPieChartPanel());
+    chartsPanel.add(createBarChartPanel2());
+    chartsPanel.add(createPieChartPanel2());
+}
+private void setupLayout() {
+    mainPanel.add(createHeaderPanel(), BorderLayout.NORTH);
+    mainPanel.add(chartsPanel, BorderLayout.CENTER);
+    mainPanel.add(createControlPanel(), BorderLayout.SOUTH);
+    setContentPane(mainPanel);
+}
     
    private void setupFrame() {
         setTitle("LSPU SPCC Enrollment Monitoring System");
@@ -101,12 +105,18 @@ public class FrmVisualization extends javax.swing.JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        mainPanel.setBackground(new Color(45, 51, 56)); // Dark slate gray
+        chartsPanel.setBackground(new Color(45, 51, 56));
     }
     
     private JPanel createHeaderPanel() {
+        
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(0, 102, 204));
         headerPanel.setPreferredSize(new Dimension(getWidth(), 60));
+        // In createHeaderPanel():
+        headerPanel.setBackground(new Color(45, 51, 56));
         
         JLabel titleLabel = new JLabel("LSPU SPCC Enrollment Dashboard");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -121,10 +131,13 @@ public class FrmVisualization extends javax.swing.JFrame {
         controlPanel.setBackground(new Color(240, 240, 240));
         controlPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        
+  
         JButton backButton = new JButton("Back");
         
-       
+             // In createControlPanel():
+        controlPanel.setBackground(new Color(45, 51, 56));
+        backButton.setBackground(new Color(38, 166, 154)); // Teal
+        backButton.setForeground(Color.WHITE);
         
         
         
@@ -242,38 +255,64 @@ public class FrmVisualization extends javax.swing.JFrame {
         return chart;
     }
     
-    private void customizeChart(JFreeChart chart) {
-        chart.setBackgroundPaint(Color.WHITE);
-        chart.getTitle().setFont(new Font("Arial", Font.BOLD, 16));
-        chart.addSubtitle(new TextTitle("LSPU SPCC", 
-                new Font("Arial", Font.ITALIC, 12)));
-    }
+    // Update chart customization:
+private void customizeChart(JFreeChart chart) {
+    chart.setBackgroundPaint(new Color(45, 51, 56));
+    chart.getTitle().setPaint(Color.WHITE);
+    chart.getTitle().setFont(new Font("Arial", Font.BOLD, 16));
+}
     
-    private void customizeBarPlot(CategoryPlot plot) {
-        plot.setBackgroundPaint(Color.WHITE);
-        plot.setRangeGridlinePaint(Color.GRAY);
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setSeriesPaint(0, new Color(0, 102, 204));
-    }
+private void customizeBarPlot(CategoryPlot plot) {
+    plot.setBackgroundPaint(new Color(45, 51, 56));
+    plot.setRangeGridlinePaint(new Color(70, 70, 70));
+    plot.getDomainAxis().setLabelPaint(Color.WHITE);
+    plot.getRangeAxis().setLabelPaint(Color.WHITE);
+    plot.getDomainAxis().setTickLabelPaint(Color.WHITE);
+    plot.getRangeAxis().setTickLabelPaint(Color.WHITE);
     
-    private void customizePiePlot(PiePlot plot) {
-        plot.setBackgroundPaint(Color.WHITE);
-        plot.setLabelFont(new Font("Arial", Font.PLAIN, 12));
-        plot.setLabelBackgroundPaint(new Color(255, 255, 255, 220));
-    }
+    BarRenderer renderer = (BarRenderer) plot.getRenderer();
+    int itemCount = plot.getDataset().getColumnCount();
     
-    private JPanel createBarChartPanel() {
-        ChartPanel chartPanel = new ChartPanel(createBarChart());
-        chartPanel.setPreferredSize(new Dimension(500, 300));
-        return chartPanel;
+    for (int i = 0; i < itemCount; i++) {
+        renderer.setSeriesPaint(0, i % 2 == 0 ? 
+            new Color(38, 166, 154) :  // Turquoise
+            new Color(119, 178, 85));  // Green
     }
+}
     
-    private JPanel createBarChartPanel2() {
-        ChartPanel chartPanel = new ChartPanel(createBarChart2());
-        chartPanel.setPreferredSize(new Dimension(500, 300));
-        return chartPanel;
-    }
+private void customizePiePlot(PiePlot plot) {
+    plot.setBackgroundPaint(new Color(45, 51, 56));
+    plot.setLabelBackgroundPaint(new Color(45, 51, 56));
+    plot.setLabelPaint(Color.WHITE);
     
+    // Set section colors to green and teal
+    plot.setSectionPaint("Male", new Color(119, 178, 85));
+    plot.setSectionPaint("Female", new Color(38, 166, 154));
+    plot.setSectionPaint("Urban", new Color(119, 178, 85));
+    plot.setSectionPaint("Rural", new Color(38, 166, 154));
+}
+    
+  private JPanel createBarChartPanel() {
+    ChartPanel chartPanel = new ChartPanel(createBarChart());
+    chartPanel.setPreferredSize(new Dimension(500, 300));
+    chartPanel.setDomainZoomable(false);
+    chartPanel.setRangeZoomable(false);
+    chartPanel.setPopupMenu(null);
+    chartPanel.setMouseWheelEnabled(false);
+    return chartPanel;
+}
+    
+private JPanel createBarChartPanel2() {
+    ChartPanel chartPanel = new ChartPanel(createBarChart2());
+    chartPanel.setPreferredSize(new Dimension(500, 300));
+    chartPanel.setDomainZoomable(false);
+    chartPanel.setRangeZoomable(false);
+    chartPanel.setPopupMenu(null);
+    chartPanel.setMouseWheelEnabled(false);
+    return chartPanel;
+}
+    
+  
     private JPanel createPieChartPanel() {
         ChartPanel chartPanel = new ChartPanel(createPieChart());
         chartPanel.setPreferredSize(new Dimension(500, 300));
