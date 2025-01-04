@@ -146,8 +146,10 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel2.setText("Username");
 
         txtUsername.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtUsername.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         txtPassword.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);

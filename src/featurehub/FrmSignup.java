@@ -140,10 +140,13 @@ public class FrmSignup extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(49, 55, 62));
 
         txtFirstname.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtFirstname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         txtUsername.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtUsername.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         txtLastname.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtLastname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -163,6 +166,7 @@ public class FrmSignup extends javax.swing.JFrame {
 
         cbRole.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         cbRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ADMIN", "USER" }));
+        cbRole.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         btnSignup.setBackground(new java.awt.Color(96, 148, 26));
         btnSignup.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
@@ -176,6 +180,7 @@ public class FrmSignup extends javax.swing.JFrame {
         });
 
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         chbPassVisibility.setBackground(new java.awt.Color(49, 55, 62));
         chbPassVisibility.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
@@ -228,8 +233,11 @@ public class FrmSignup extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Sign up");
 
-        btnBack.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnBack.setBackground(new java.awt.Color(96, 148, 26));
+        btnBack.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
+        btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(96, 148, 26)));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -260,12 +268,15 @@ public class FrmSignup extends javax.swing.JFrame {
                             .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSignup, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBack, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(904, 904, 904)
                         .addComponent(jLabel6)))
-                .addGap(0, 769, Short.MAX_VALUE))
+                .addGap(0, 741, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,20 +306,20 @@ public class FrmSignup extends javax.swing.JFrame {
                 .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(btnSignup)
-                .addGap(86, 86, 86)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addComponent(btnBack)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(79, 79, 79))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1080, Short.MAX_VALUE)
         );
 
         pack();
