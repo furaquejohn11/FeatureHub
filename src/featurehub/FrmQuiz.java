@@ -5,6 +5,7 @@
  */
 package featurehub;
 
+import models.Question;
 import java.awt.Toolkit;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -32,6 +33,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import sql.QuizRepository;
+
+
+import models.QuizAttempt;
 /**
  *
  * @author daved
@@ -40,6 +46,8 @@ import javax.swing.table.DefaultTableModel;
 public class FrmQuiz extends javax.swing.JFrame {
     private List<String> resultSummary; // To store each question's result
     private List<Boolean> answerResults;
+    
+    private QuizRepository quizRepository = new QuizRepository();
 
     private String username;
     private String role;
@@ -53,53 +61,6 @@ public class FrmQuiz extends javax.swing.JFrame {
     // Declare the button and icons
     private ImageIcon defaultIcon;
     private ImageIcon hoverIcon;
-    
-    // Add these as class members in your FrmQuiz class
-private class QuizAttempt implements Comparable<QuizAttempt> {
-    private String username;
-    private int score;
-    private String timestamp;
-    private int timeTaken;  // in seconds
-    
-    public QuizAttempt(String username, int score, String timestamp, int timeTaken) {
-        this.username = username;
-        this.score = score;
-        this.timestamp = timestamp;
-        this.timeTaken = timeTaken;
-    }
-    
-    public String getUsername() {
-        return username;
-    }
-    
-    public int getScore() {
-        return score;
-    }
-    
-    public String getTimestamp() {
-        return timestamp;
-    }
-    
-    public int getTimeTaken() {
-        return timeTaken;
-    }
-    
-    // Format time taken as minutes:seconds
-    public String getFormattedTime() {
-        int minutes = timeTaken / 60;
-        int seconds = timeTaken % 60;
-        return String.format("%02d:%02d", minutes, seconds);
-    }
-    
-    // Compare based on score first, then time taken if scores are equal
-    @Override
-    public int compareTo(QuizAttempt other) {
-        if (this.score != other.score) {
-            return other.score - this.score; // Higher score first
-        }
-        return this.timeTaken - other.timeTaken; // Lower time first if scores are equal
-    }
-}
     
     public FrmQuiz(String username, String role) {
         this.setUndecorated(true); // Removes the title bar
@@ -235,41 +196,38 @@ private void showQuizHistory() {
         }
     };
     
-    // Get all attempts including current
-    List<QuizAttempt> allAttempts = new ArrayList<>();
     
-    // Add current attempt
-    allAttempts.add(new QuizAttempt(
-        username + " (Current)", 
+    QuizAttempt userAttempt = new QuizAttempt(
+        username, 
         correctAnswers, 
         new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()),
         calculateTimeTaken()
-    ));
+    );
     
-    // Add historical attempts
-    allAttempts.addAll(getQuizHistory());
+    // Record attempt to the database
+    quizRepository.setScore(userAttempt);
     
-    // Sort attempts (using Comparable implementation)
-    java.util.Collections.sort(allAttempts);
+    List<QuizAttempt> leaderboard = quizRepository.getScoreLeaderboard();
     
-    // Add sorted attempts to table with ranks
-    for (int i = 0; i < allAttempts.size(); i++) {
-        QuizAttempt attempt = allAttempts.get(i);
+    int rank = 1;
+    for (QuizAttempt score : leaderboard)
+    {
         model.addRow(new Object[]{
-            String.valueOf(i + 1),  // Rank
-            attempt.getUsername(),
-            attempt.getScore() + "/17",
-            attempt.getFormattedTime(),
-            attempt.getTimestamp()
+            String.valueOf(rank),  // Rank
+            score.getUsername(),
+            score.getScore() + "/17",
+            score.getFormattedTime(),
+            score.getTimestamp()
         });
+        rank++;
     }
-    
+  
     // Add current attempt
-    model.addRow(new Object[]{
-        username + " (Current)", 
-        correctAnswers + "/17",
-        new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()) + " (Just now)"
-    });
+//    model.addRow(new Object[]{
+//        username + " (Current)", 
+//        correctAnswers + "/17",
+//        new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()) + " (Just now)"
+//    });
     
     // Add historical attempts
     List<QuizAttempt> history = getQuizHistory();
