@@ -17,7 +17,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author daved
@@ -40,6 +54,53 @@ public class FrmQuiz extends javax.swing.JFrame {
     private ImageIcon defaultIcon;
     private ImageIcon hoverIcon;
     
+    // Add these as class members in your FrmQuiz class
+private class QuizAttempt implements Comparable<QuizAttempt> {
+    private String username;
+    private int score;
+    private String timestamp;
+    private int timeTaken;  // in seconds
+    
+    public QuizAttempt(String username, int score, String timestamp, int timeTaken) {
+        this.username = username;
+        this.score = score;
+        this.timestamp = timestamp;
+        this.timeTaken = timeTaken;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+    
+    public int getScore() {
+        return score;
+    }
+    
+    public String getTimestamp() {
+        return timestamp;
+    }
+    
+    public int getTimeTaken() {
+        return timeTaken;
+    }
+    
+    // Format time taken as minutes:seconds
+    public String getFormattedTime() {
+        int minutes = timeTaken / 60;
+        int seconds = timeTaken % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+    
+    // Compare based on score first, then time taken if scores are equal
+    @Override
+    public int compareTo(QuizAttempt other) {
+        if (this.score != other.score) {
+            return other.score - this.score; // Higher score first
+        }
+        return this.timeTaken - other.timeTaken; // Lower time first if scores are equal
+    }
+}
+    
     public FrmQuiz(String username, String role) {
         this.setUndecorated(true); // Removes the title bar
         
@@ -52,7 +113,7 @@ public class FrmQuiz extends javax.swing.JFrame {
         loadQuestions();
         displayQuestion();
         startTimer();
-        userLabel.setText("User Level: " + username);
+        userLabel.setText("Username: " + username);
         
         this.setLocationRelativeTo(null);
         
@@ -134,6 +195,137 @@ public class FrmQuiz extends javax.swing.JFrame {
     // Ensure that the frame is focused on startup
     this.requestFocusInWindow();  // Ensures the frame can capture key events
     }
+    
+    /// Modify the getQuizHistory method to include time taken
+private List<QuizAttempt> getQuizHistory() {
+    List<QuizAttempt> history = new ArrayList<>();
+    
+    return history;
+}
+
+// Add this method to calculate time taken
+private int calculateTimeTaken() {
+    return 300 - timeLeft; // 300 was the initial time
+}
+
+// Add this method to show the history dialog
+// Update the showQuizHistory method
+private void showQuizHistory() {
+    final JDialog historyDialog = new JDialog(this, "Quiz Leaderboard", true);
+    historyDialog.setSize(700, 400); // Made wider to accommodate more columns
+    historyDialog.setLocationRelativeTo(this);
+    
+    JPanel historyPanel = new JPanel();
+    historyPanel.setBackground(new Color(27, 25, 34));
+    historyPanel.setLayout(new BorderLayout());
+    
+    JLabel titleLabel = new JLabel("Quiz Leaderboard", SwingConstants.CENTER);
+    titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+    titleLabel.setForeground(Color.WHITE);
+    titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+    
+    // Create table model with rank column
+    DefaultTableModel model = new DefaultTableModel(
+        new Object[][] {},
+        new String[] {"Rank", "Username", "Score", "Time Taken", "Date/Time"}
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    // Get all attempts including current
+    List<QuizAttempt> allAttempts = new ArrayList<>();
+    
+    // Add current attempt
+    allAttempts.add(new QuizAttempt(
+        username + " (Current)", 
+        correctAnswers, 
+        new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()),
+        calculateTimeTaken()
+    ));
+    
+    // Add historical attempts
+    allAttempts.addAll(getQuizHistory());
+    
+    // Sort attempts (using Comparable implementation)
+    java.util.Collections.sort(allAttempts);
+    
+    // Add sorted attempts to table with ranks
+    for (int i = 0; i < allAttempts.size(); i++) {
+        QuizAttempt attempt = allAttempts.get(i);
+        model.addRow(new Object[]{
+            String.valueOf(i + 1),  // Rank
+            attempt.getUsername(),
+            attempt.getScore() + "/17",
+            attempt.getFormattedTime(),
+            attempt.getTimestamp()
+        });
+    }
+    
+    // Add current attempt
+    model.addRow(new Object[]{
+        username + " (Current)", 
+        correctAnswers + "/17",
+        new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()) + " (Just now)"
+    });
+    
+    // Add historical attempts
+    List<QuizAttempt> history = getQuizHistory();
+    for (QuizAttempt attempt : history) {
+        model.addRow(new Object[]{
+            attempt.getUsername(),
+            attempt.getScore() + "/17",
+            attempt.getTimestamp()
+        });
+    }
+    
+     // Create and customize table
+    JTable historyTable = new JTable(model);
+    historyTable.setBackground(new Color(55, 51, 71));
+    historyTable.setForeground(Color.WHITE);
+    historyTable.setFont(new Font("SansSerif", Font.PLAIN, 14));
+    historyTable.setRowHeight(30);
+    historyTable.getTableHeader().setBackground(new Color(66, 19, 80));
+    historyTable.getTableHeader().setForeground(Color.WHITE);
+    historyTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+    historyTable.setFillsViewportHeight(true);
+    
+    // Set column widths
+    historyTable.getColumnModel().getColumn(0).setPreferredWidth(50);  // Rank
+    historyTable.getColumnModel().getColumn(1).setPreferredWidth(200); // Username
+    historyTable.getColumnModel().getColumn(2).setPreferredWidth(100); // Score
+    historyTable.getColumnModel().getColumn(3).setPreferredWidth(100); // Time
+    historyTable.getColumnModel().getColumn(4).setPreferredWidth(150); // Date/Time
+    
+    JScrollPane scrollPane = new JScrollPane(historyTable);
+    scrollPane.getViewport().setBackground(new Color(27, 25, 34));
+    
+    // Create close button
+    JButton closeButton = new JButton("Close");
+    closeButton.setBackground(new Color(66, 19, 80));
+    closeButton.setForeground(Color.WHITE);
+    closeButton.setFont(new Font("SansSerif", Font.PLAIN, 16));
+    closeButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            historyDialog.dispose();
+        }
+    });
+    
+    // Add components to panel
+    historyPanel.add(titleLabel, BorderLayout.NORTH);
+    historyPanel.add(scrollPane, BorderLayout.CENTER);
+    
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    buttonPanel.setBackground(new Color(27, 25, 34));
+    buttonPanel.add(closeButton);
+    buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+    historyPanel.add(buttonPanel, BorderLayout.SOUTH);
+    
+    historyDialog.add(historyPanel);
+    historyDialog.setVisible(true);
+}
 
     FrmQuiz() {
         this.answerResults = new ArrayList<>();
@@ -198,62 +390,66 @@ public class FrmQuiz extends javax.swing.JFrame {
     this.setTitle(progress);
 }
     
-     private void endQuiz() {
-        if (timer != null) {
-            timer.stop();
-        }
-
-        String remarks = "";
-        if (correctAnswers >= 15) {
-            remarks = "Excellent";
-        } else if (correctAnswers >= 12) {
-            remarks = "Very Good";
-        } else if (correctAnswers >= 9) {
-            remarks = "Fair";
-        } else {
-            remarks = "Failed";
-        }
-
-        // Show detailed summary of results
-        StringBuilder summary = new StringBuilder("Quiz Summary:\n\n");
-        for (int i = 0; i < resultSummary.size(); i++) {
-            summary.append(resultSummary.get(i)).append("\n");
-        }
-        
-        // Add overall score at the end
-        summary.append("\nTotal Score: ").append(correctAnswers).append("/17");
-        
-        // Show the detailed summary first
-        JOptionPane.showMessageDialog(this, summary.toString(), 
-            "Quiz Summary", JOptionPane.INFORMATION_MESSAGE);
-
-        // Then show final score and remarks
-        JOptionPane.showMessageDialog(this,
-            "Quiz Finished!\n" +
-            "Your Score: " + correctAnswers + "/17\n" +
-            "Remarks: " + remarks);
-
-        // Show recommendation
-        showRecommendation(correctAnswers);
-
-        // Ask for next steps
-        int choice = JOptionPane.showOptionDialog(this,
-                "Would you like to retry or return to the dashboard?",
-                "Quiz Complete",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                new Object[]{"Retry", "Dashboard"},
-                "Retry");
-
-        if (choice == JOptionPane.YES_OPTION) {
-            resetQuiz();
-        } else if (choice == JOptionPane.NO_OPTION) {
-            this.setVisible(false);
-            FrmDashboard frmdashboard = new FrmDashboard(username, role);
-            frmdashboard.setVisible(true);
-        }
+     // Find this part in your endQuiz() method:
+private void endQuiz() {
+    if (timer != null) {
+        timer.stop();
     }
+
+    String remarks = "";
+    if (correctAnswers >= 15) {
+        remarks = "Excellent";
+    } else if (correctAnswers >= 12) {
+        remarks = "Very Good";
+    } else if (correctAnswers >= 9) {
+        remarks = "Fair";
+    } else {
+        remarks = "Failed";
+    }
+
+    // Show detailed summary of results
+    StringBuilder summary = new StringBuilder("Quiz Summary:\n\n");
+    for (int i = 0; i < resultSummary.size(); i++) {
+        summary.append(resultSummary.get(i)).append("\n");
+    }
+    
+    // Add overall score at the end
+    summary.append("\nTotal Score: ").append(correctAnswers).append("/17");
+    
+    // Show the detailed summary first
+    JOptionPane.showMessageDialog(this, summary.toString(), 
+        "Quiz Summary", JOptionPane.INFORMATION_MESSAGE);
+
+    // Then show final score and remarks
+    JOptionPane.showMessageDialog(this,
+        "Quiz Finished!\n" +
+        "Your Score: " + correctAnswers + "/17\n" +
+        "Remarks: " + remarks);
+
+    // Show recommendation
+    showRecommendation(correctAnswers);
+    
+    // Show quiz history dialog
+    showQuizHistory();
+
+    // After closing history, show retry/dashboard option
+    int choice = JOptionPane.showOptionDialog(this,
+            "Would you like to retry or return to the dashboard?",
+            "Quiz Complete",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            new Object[]{"Retry", "Dashboard"},
+            "Retry");
+
+    if (choice == JOptionPane.YES_OPTION) {
+        resetQuiz();
+    } else if (choice == JOptionPane.NO_OPTION) {
+        this.setVisible(false);
+        FrmDashboard frmdashboard = new FrmDashboard(username, role);
+        frmdashboard.setVisible(true);
+    }
+}
 
     private void resetQuiz() {
         currentQuestionIndex = 0;

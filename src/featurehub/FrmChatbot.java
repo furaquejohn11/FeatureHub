@@ -50,6 +50,17 @@ public class FrmChatbot extends javax.swing.JFrame {
         this.role = role;
         this.responseMap = initializeResponses();
         initComponents();
+        
+        // In your FrmChatbot class constructor, after initComponents(), add this:
+userInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+    @Override
+    public void keyPressed(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            processUserInput();
+            evt.consume(); // Prevent the "ding" sound
+        }
+    }
+});
         this.setLocationRelativeTo(null);
         
         setFullScreen(); // Set the frame into fullscreen
